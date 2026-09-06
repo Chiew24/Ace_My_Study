@@ -12,14 +12,14 @@ body { margin:0; min-height:100vh; font-family:Inter,-apple-system,BlinkMacSyste
 .sidebar-section-title { margin-top:17px; margin-bottom:8px; }
 .sidebar-section-title:last-of-type { margin-top:auto; }
 .sidebar-nav { display:flex; flex-direction:column; gap:3px; flex:0 0 auto; }
-.nav-item { display:flex; align-items:center; gap:10px; min-height:43px; padding:0 10px; border-radius:11px; color:#51627c; text-decoration:none; font-size:13px; font-weight:500; transition:background .18s ease,color .18s ease; }
-.nav-item:hover { background:rgba(255,255,255,.62); color:var(--navy); }
+.nav-item { display:flex; align-items:center; gap:10px; min-height:43px; padding:0 10px; border-radius:11px; color:#51627c; text-decoration:none; font-size:13px; font-weight:500; transition:background .18s ease,color .18s ease,transform .18s ease; }
+.nav-item:hover { background:rgba(255,255,255,.62); color:var(--navy); transform:translateX(1px); }
 .nav-item.active { background:var(--purple-soft); color:var(--purple); font-weight:700; }
 .icon { width:18px; height:18px; flex:0 0 18px; display:grid; place-items:center; color:#8ca0bd; }
 .nav-item.active .icon { color:var(--purple); }
 .icon svg { width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
 .main-content { margin-left:var(--sidebar-width); min-height:100vh; padding:78px 58px 58px; background:var(--cream); }
-.topbar { position:fixed; top:0; right:0; left:var(--sidebar-width); height:78px; border-bottom:1px solid var(--line); background:rgba(250,246,238,.92); z-index:2; }
+.topbar { position:fixed; top:0; right:0; left:var(--sidebar-width); height:78px; border-bottom:1px solid var(--line); background:rgba(250,246,238,.92); z-index:2; backdrop-filter:blur(8px); }
 .topbar-sun { position:absolute; right:36px; top:25px; width:25px; height:25px; color:#7c8ea5; }
 .welcome { max-width:920px; margin:62px auto 0; }
 .eyebrow { margin:0 0 9px; color:var(--muted); font-size:19px; line-height:1.2; }
@@ -102,6 +102,14 @@ body { margin:0; min-height:100vh; font-family:Inter,-apple-system,BlinkMacSyste
 .welcome .journey { animation-delay:1.08s; }
 @keyframes overviewReveal { to { opacity:1; transform:translateY(0); } }
 @media (prefers-reduced-motion:reduce) { .welcome .eyebrow,.welcome h1,.welcome .subtitle,.welcome .quote,.welcome .section-title,.welcome .quick-card,.welcome .journey { animation:none; opacity:1; transform:none; } }
+
+/* Sidebar refinement */
+.menu-title { margin-left:8px; margin-right:8px; }
+.sidebar-section-title { margin-top:10px; margin-bottom:6px; }
+.sidebar-section-title:last-of-type { margin-top:auto; }
+.sidebar-nav { gap:2px; }
+.nav-item { min-height:40px; }
+.profile-card { margin-bottom:18px; }
 
 @media (max-width:1050px) { :root { --sidebar-width:205px; } .quick-grid,.subject-grid,.my-subjects-panel .subject-grid { grid-template-columns:1fr; } .course-menu { grid-template-columns:1fr; } .quote { display:none; } }
 @media (max-width:700px) { :root { --sidebar-width:185px; } .sidebar { padding-left:7px; padding-right:7px; } .brand { height:125px; } .brand img { width:90px; height:90px; } .profile-card { margin-left:3px; margin-right:3px; } .main-content { padding:78px 22px 44px; } .topbar { height:64px; } .welcome { margin-top:45px; } .eyebrow { font-size:16px; } .subtitle { font-size:15px; } .subject-tabs { flex-wrap:wrap; } .course-intro { align-items:flex-start; flex-direction:column; gap:14px; } .site-footer { margin-top:48px; align-items:flex-start; flex-direction:column; gap:10px; } }

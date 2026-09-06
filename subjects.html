@@ -23,18 +23,72 @@
       <h1>Subjects</h1>
       <p>Explore your subjects and continue your learning journey.</p>
       <div class="subject-tabs" role="tablist" aria-label="Subject views">
-        <button class="subject-tab active" type="button">Explore Subject</button>
-        <button class="subject-tab" type="button">My Subjects</button>
+        <button class="subject-tab" id="mySubjectsTab" type="button">My Subjects</button>
+        <button class="subject-tab active" id="exploreTab" type="button">Explore Subject</button>
       </div>
-      <div class="subject-list">
+      <div class="subject-list" id="explorePanel">
         <h2>All Subjects</h2>
         <div class="subject-grid">
-          <button class="subject-card" type="button"><span class="subject-icon">∑</span><span><strong>Additional Mathematics</strong><small>Explore subject</small></span><span class="subject-arrow">→</span></button>
-          <button class="subject-card" type="button"><span class="subject-icon">＋</span><span><strong>Mathematics</strong><small>Explore subject</small></span><span class="subject-arrow">→</span></button>
-          <button class="subject-card" type="button"><span class="subject-icon">文</span><span><strong>Sejarah</strong><small>Explore subject</small></span><span class="subject-arrow">→</span></button>
+          <div class="subject-card"><span class="subject-icon">∑</span><span><strong>Additional Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Additional Mathematics" type="button">+ Add</button></div>
+          <div class="subject-card"><span class="subject-icon">＋</span><span><strong>Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Mathematics" type="button">+ Add</button></div>
+          <div class="subject-card"><span class="subject-icon">文</span><span><strong>Sejarah</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Sejarah" type="button">+ Add</button></div>
         </div>
+      </div>
+      <div class="subject-list my-subjects-panel" id="mySubjectsPanel" hidden>
+        <h2>My Subjects</h2>
+        <div class="subject-grid" id="mySubjectsGrid"></div>
+        <p class="empty-subjects" id="emptySubjects">You haven't added any subjects yet.</p>
       </div>
     </section>
   </main>
+  <script>
+    const exploreTab = document.getElementById('exploreTab');
+    const mySubjectsTab = document.getElementById('mySubjectsTab');
+    const explorePanel = document.getElementById('explorePanel');
+    const mySubjectsPanel = document.getElementById('mySubjectsPanel');
+    const mySubjectsGrid = document.getElementById('mySubjectsGrid');
+    const emptySubjects = document.getElementById('emptySubjects');
+    const subjectButtons = document.querySelectorAll('.add-subject');
+    let mySubjects = JSON.parse(localStorage.getItem('learnWithShenSubjects') || '[]');
+
+    function renderMySubjects() {
+      mySubjectsGrid.innerHTML = mySubjects.map(subject => `<div class="subject-card"><span class="subject-icon">✓</span><span><strong>${subject}</strong><small>Added to My Subjects</small></span><button class="remove-subject" data-subject="${subject}" type="button">Remove</button></div>`).join('');
+      emptySubjects.hidden = mySubjects.length > 0;
+      subjectButtons.forEach(button => {
+        const added = mySubjects.includes(button.dataset.subject);
+        button.textContent = added ? 'Added' : '+ Add';
+        button.classList.toggle('added', added);
+        button.disabled = added;
+      });
+      document.querySelectorAll('.remove-subject').forEach(button => {
+        button.addEventListener('click', () => {
+          mySubjects = mySubjects.filter(subject => subject !== button.dataset.subject);
+          localStorage.setItem('learnWithShenSubjects', JSON.stringify(mySubjects));
+          renderMySubjects();
+        });
+      });
+    }
+
+    function showPanel(panel) {
+      const explore = panel === 'explore';
+      explorePanel.hidden = !explore;
+      mySubjectsPanel.hidden = explore;
+      exploreTab.classList.toggle('active', explore);
+      mySubjectsTab.classList.toggle('active', !explore);
+    }
+
+    subjectButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        if (button.disabled) return;
+        mySubjects.push(button.dataset.subject);
+        localStorage.setItem('learnWithShenSubjects', JSON.stringify(mySubjects));
+        renderMySubjects();
+      });
+    });
+
+    exploreTab.addEventListener('click', () => showPanel('explore'));
+    mySubjectsTab.addEventListener('click', () => showPanel('my'));
+    renderMySubjects();
+  </script>
 </body>
 </html>

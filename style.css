@@ -16,7 +16,7 @@
 body { margin: 0; min-height: 100vh; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; background: var(--cream); color: var(--navy); }
 .sidebar { position: fixed; inset: 0 auto 0 0; width: var(--sidebar-width); height: 100vh; padding: 0 10px 20px; background: rgba(250,246,238,.98); border-right: 1px solid var(--line); overflow-y: auto; }
 .brand { height: 180px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--line); }
-.brand img { display: block; width: 100px; height: 100px; object-fit: contain; }
+.brand img { display: block; width: 100px; height: 100px; object-fit: contain; transform: translateY(-16px); }
 .profile-card { margin: 14px 5px 20px; padding: 10px 11px; min-height: 58px; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(218,208,194,.7); border-radius: 13px; background: rgba(255,253,249,.82); box-shadow: 0 5px 18px rgba(85,67,43,.035); }
 .avatar { width: 35px; height: 35px; flex: 0 0 35px; display: grid; place-items: center; border-radius: 10px; background: var(--purple); color: #fff; font-size: 13px; font-weight: 700; }
 .profile-name { color: #101e34; font-size: 13px; font-weight: 700; line-height: 1.25; }
@@ -56,4 +56,4 @@ body { margin: 0; min-height: 100vh; font-family: Inter, -apple-system, BlinkMac
 .page-heading p { color:var(--muted); font-size:16px; }
 
 @media (max-width: 1050px) { :root { --sidebar-width:205px; } .quick-grid { grid-template-columns:1fr; } .quote { display:none; } }
-@media (max-width: 700px) { :root { --sidebar-width:185px; } .sidebar { padding-left:7px; padding-right:7px; } .brand { height:150px; } .brand img { width:90px; height:90px; } .profile-card { margin-left:3px; margin-right:3px; } .main-content { padding:78px 22px 44px; } .topbar { height:64px; } .welcome { margin-top:45px; } .eyebrow { font-size:16px; } .subtitle { font-size:15px; } }
+@media (max-width: 700px) { :root { --sidebar-width:185px; } .sidebar { padding-left:7px; padding-right:7px; } .brand { height:150px; } .brand img { width:90px; height:90px; transform: translateY(-12px); } .profile-card { margin-left:3px; margin-right:3px; } .main-content { padding:78px 22px 44px; } .topbar { height:64px; } .welcome { margin-top:45px; } .eyebrow { font-size:16px; } .subtitle { font-size:15px; } }

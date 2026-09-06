@@ -103,6 +103,24 @@ body { margin:0; min-height:100vh; font-family:Inter,-apple-system,BlinkMacSyste
 @keyframes overviewReveal { to { opacity:1; transform:translateY(0); } }
 @media (prefers-reduced-motion:reduce) { .welcome .eyebrow,.welcome h1,.welcome .subtitle,.welcome .quote,.welcome .section-title,.welcome .quick-card,.welcome .journey { animation:none; opacity:1; transform:none; } }
 
+/* Subjects: slow, refined entrance */
+.subjects-page > h1,
+.subjects-page > p,
+.subjects-page .subject-tabs,
+.subjects-page .subject-list { opacity:0; transform:translateY(14px); animation:subjectsReveal .9s cubic-bezier(.22,1,.36,1) forwards; }
+.subjects-page > h1 { animation-delay:.08s; }
+.subjects-page > p { animation-delay:.20s; }
+.subjects-page .subject-tabs { animation-delay:.34s; }
+.subjects-page .subject-list { animation-delay:.48s; }
+.subjects-page .subject-list h2 { opacity:0; transform:translateY(10px); animation:subjectsReveal .75s cubic-bezier(.22,1,.36,1) .58s forwards; }
+.subjects-page .subject-card { opacity:0; transform:translateY(12px); animation:subjectCardReveal .75s cubic-bezier(.22,1,.36,1) forwards; }
+.subjects-page .subject-card:nth-child(1) { animation-delay:.68s; }
+.subjects-page .subject-card:nth-child(2) { animation-delay:.80s; }
+.subjects-page .subject-card:nth-child(3) { animation-delay:.92s; }
+@keyframes subjectsReveal { to { opacity:1; transform:translateY(0); } }
+@keyframes subjectCardReveal { to { opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion:reduce) { .subjects-page > h1,.subjects-page > p,.subjects-page .subject-tabs,.subjects-page .subject-list,.subjects-page .subject-list h2,.subjects-page .subject-card { animation:none; opacity:1; transform:none; } }
+
 /* Sidebar refinement */
 .menu-title { margin-left:8px; margin-right:8px; }
 .sidebar-section-title { margin-top:10px; margin-bottom:6px; }

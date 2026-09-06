@@ -11,8 +11,8 @@
     .add-subject { flex:0 0 auto; min-width:82px; padding:9px 16px; border:1px solid #d8c7aa; border-radius:999px; background:#fffdf9; color:#8a6b3f; font:600 13px/1 Arial,sans-serif; cursor:pointer; transition:all .2s ease; box-shadow:0 2px 7px rgba(31,50,75,.06); }
     .add-subject:hover { background:#f7f0e5; border-color:#b89a70; transform:translateY(-1px); box-shadow:0 4px 10px rgba(31,50,75,.09); }
     .add-subject:active { transform:translateY(0); }
-    .add-subject.added { background:#edf5ef; border-color:#bfd3c2; color:#55785d; cursor:default; box-shadow:none; }
-    .add-subject.added::before { content:'✓ '; font-weight:700; }
+    .add-subject.added { background:#edf5ef; border-color:#bfd3c2; color:#55785d; cursor:pointer; box-shadow:none; }
+    .add-subject.added:hover { background:#f8ece8; border-color:#d4b5aa; color:#8a5f52; transform:translateY(-1px); }
     .remove-subject { flex:0 0 auto; padding:8px 14px; border:1px solid #dfd2c2; border-radius:999px; background:transparent; color:#8b7280; font:600 13px/1 Arial,sans-serif; cursor:pointer; }
     .remove-subject:hover { background:#f8f1e8; color:#735f55; }
     @media (max-width:700px) { .subject-card { gap:10px; } .add-subject,.remove-subject { min-width:auto; padding:8px 11px; } }
@@ -41,9 +41,9 @@
       <div class="subject-list" id="explorePanel">
         <h2>All Subjects</h2>
         <div class="subject-grid">
-          <div class="subject-card"><span class="subject-icon">∑</span><span><strong>Additional Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Additional Mathematics" type="button">+ Add</button></div>
-          <div class="subject-card"><span class="subject-icon">＋</span><span><strong>Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Mathematics" type="button">+ Add</button></div>
-          <div class="subject-card"><span class="subject-icon">文</span><span><strong>Sejarah</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Sejarah" type="button">+ Add</button></div>
+          <div class="subject-card subject-selectable" role="button" tabindex="0" data-subject="Additional Mathematics"><span class="subject-icon">∑</span><span><strong>Additional Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Additional Mathematics" type="button">+ Add</button></div>
+          <div class="subject-card subject-selectable" role="button" tabindex="0" data-subject="Mathematics"><span class="subject-icon">＋</span><span><strong>Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Mathematics" type="button">+ Add</button></div>
+          <div class="subject-card subject-selectable" role="button" tabindex="0" data-subject="Sejarah"><span class="subject-icon">文</span><span><strong>Sejarah</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Sejarah" type="button">+ Add</button></div>
         </div>
       </div>
       <div class="subject-list my-subjects-panel" id="mySubjectsPanel" hidden>
@@ -56,16 +56,50 @@
   <script>
     const exploreTab=document.getElementById('exploreTab'), mySubjectsTab=document.getElementById('mySubjectsTab'), explorePanel=document.getElementById('explorePanel'), mySubjectsPanel=document.getElementById('mySubjectsPanel'), mySubjectsGrid=document.getElementById('mySubjectsGrid'), emptySubjects=document.getElementById('emptySubjects');
     const subjectButtons=document.querySelectorAll('.add-subject');
+    const subjectCards=document.querySelectorAll('.subject-selectable');
     let mySubjects=JSON.parse(localStorage.getItem('learnWithShenSubjects')||'[]');
+
+    function openCourse(subject){ window.location.href='course.html?subject='+encodeURIComponent(subject); }
+
     function renderMySubjects(){
-      mySubjectsGrid.innerHTML=mySubjects.map(subject=>`<div class="subject-card"><span class="subject-icon">✓</span><span><strong>${subject}</strong><small>Added to My Subjects</small></span><button class="remove-subject" data-subject="${subject}" type="button">Remove</button></div>`).join('');
+      mySubjectsGrid.innerHTML=mySubjects.map(subject=>`<div class="subject-card"><span class="subject-icon">${subject==='Additional Mathematics'?'∑':subject==='Mathematics'?'＋':'文'}</span><span><strong>${subject}</strong><small>Added to My Subjects</small></span><button class="remove-subject" data-subject="${subject}" type="button">Remove</button></div>`).join('');
       emptySubjects.hidden=mySubjects.length>0;
-      subjectButtons.forEach(button=>{const added=mySubjects.includes(button.dataset.subject);button.textContent=added?'Added':'+ Add';button.classList.toggle('added',added);button.disabled=added;});
-      document.querySelectorAll('.remove-subject').forEach(button=>button.addEventListener('click',()=>{mySubjects=mySubjects.filter(subject=>subject!==button.dataset.subject);localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));renderMySubjects();}));
+      subjectButtons.forEach(button=>{
+        const added=mySubjects.includes(button.dataset.subject);
+        button.textContent=added?'Added':'+ Add';
+        button.classList.toggle('added',added);
+      });
+      subjectButtons.forEach(button=>{
+        button.onmouseenter=()=>{ if(button.classList.contains('added')) button.textContent='Remove'; };
+        button.onmouseleave=()=>{ if(button.classList.contains('added')) button.textContent='Added'; };
+        button.onclick=(event)=>{
+          event.stopPropagation();
+          const subject=button.dataset.subject;
+          if(mySubjects.includes(subject)){
+            mySubjects=mySubjects.filter(item=>item!==subject);
+          } else {
+            mySubjects.push(subject);
+          }
+          localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));
+          renderMySubjects();
+        };
+      });
+      document.querySelectorAll('.remove-subject').forEach(button=>button.addEventListener('click',()=>{
+        mySubjects=mySubjects.filter(subject=>subject!==button.dataset.subject);
+        localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));
+        renderMySubjects();
+      }));
     }
+
     function showPanel(panel){const explore=panel==='explore';explorePanel.hidden=!explore;mySubjectsPanel.hidden=explore;exploreTab.classList.toggle('active',explore);mySubjectsTab.classList.toggle('active',!explore);}
-    subjectButtons.forEach(button=>button.addEventListener('click',()=>{if(button.disabled)return;mySubjects.push(button.dataset.subject);localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));renderMySubjects();}));
-    exploreTab.addEventListener('click',()=>showPanel('explore'));mySubjectsTab.addEventListener('click',()=>showPanel('my'));renderMySubjects();
+
+    subjectCards.forEach(card=>{
+      card.addEventListener('click',event=>{ if(event.target.closest('.add-subject')) return; openCourse(card.dataset.subject); });
+      card.addEventListener('keydown',event=>{ if(event.key==='Enter'||event.key===' '){event.preventDefault();openCourse(card.dataset.subject);} });
+    });
+    exploreTab.addEventListener('click',()=>showPanel('explore'));
+    mySubjectsTab.addEventListener('click',()=>showPanel('my'));
+    renderMySubjects();
   </script>
 </body>
 </html>

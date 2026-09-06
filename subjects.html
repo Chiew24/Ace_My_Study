@@ -25,84 +25,36 @@
     <div class="brand"><img src="Learn%20with%20Shen.png" alt="Learn with Shen logo"></div>
     <div class="profile-card"><div class="avatar">C</div><div class="profile-name">Chiew Mu Shen</div></div>
     <p class="menu-title">MENU</p>
-    <nav class="sidebar-nav" aria-label="Main navigation">
-      <a class="nav-item" href="index.html"><span class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><span>Overview</span></a>
-      <a class="nav-item active" href="subjects.html"><span class="icon"><svg viewBox="0 0 24 24"><path d="M5 7.5h14v11H5z"/><path d="M8 7.5V5h8v2.5M9 11h6M9 14h6"/></svg></span><span>Subject</span></a>
-      <a class="nav-item" href="profile.html"><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.8-3.2 3-5 6.5-5s5.7 1.8 6.5 5"/></svg></span><span>Profile</span></a>
-    </nav>
+    <nav class="sidebar-nav" aria-label="Main navigation"><a class="nav-item" href="index.html"><span class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><span>Overview</span></a></nav>
+    <p class="menu-title sidebar-section-title">SYLLABUS</p>
+    <nav class="sidebar-nav"><a class="nav-item active" href="subjects.html"><span class="icon"><svg viewBox="0 0 24 24"><path d="M5 7.5h14v11H5z"/><path d="M8 7.5V5h8v2.5M9 11h6M9 14h6"/></svg></span><span>Subject</span></a></nav>
+    <p class="menu-title sidebar-section-title">ACCOUNT</p>
+    <nav class="sidebar-nav"><a class="nav-item" href="profile.html"><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.8-3.2 3-5 6.5-5s5.7 1.8 6.5 5"/></svg></span><span>Profile</span></a></nav>
   </aside>
   <main class="main-content">
     <div class="topbar"><svg class="topbar-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div>
     <section class="page-heading subjects-page">
-      <h1>Subjects</h1>
-      <p>Explore your subjects and continue your learning journey.</p>
-      <div class="subject-tabs" role="tablist" aria-label="Subject views">
-        <button class="subject-tab" id="mySubjectsTab" type="button">My Subjects</button>
-        <button class="subject-tab active" id="exploreTab" type="button">Explore Subject</button>
-      </div>
-      <div class="subject-list" id="explorePanel">
-        <h2>All Subjects</h2>
-        <div class="subject-grid">
-          <div class="subject-card explore-subject-card"><span class="subject-icon">∑</span><span><strong>Additional Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Additional Mathematics" type="button">+ Add</button></div>
-          <div class="subject-card explore-subject-card"><span class="subject-icon">＋</span><span><strong>Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Mathematics" type="button">+ Add</button></div>
-          <div class="subject-card explore-subject-card"><span class="subject-icon">文</span><span><strong>Sejarah</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Sejarah" type="button">+ Add</button></div>
-        </div>
-      </div>
-      <div class="subject-list my-subjects-panel" id="mySubjectsPanel" hidden>
-        <h2>My Subjects</h2>
-        <div class="subject-grid" id="mySubjectsGrid"></div>
-        <p class="empty-subjects" id="emptySubjects">You haven't added any subjects yet.</p>
-      </div>
+      <h1>Subjects</h1><p>Explore your subjects and continue your learning journey.</p>
+      <div class="subject-tabs" role="tablist" aria-label="Subject views"><button class="subject-tab" id="mySubjectsTab" type="button">My Subjects</button><button class="subject-tab active" id="exploreTab" type="button">Explore Subject</button></div>
+      <div class="subject-list" id="explorePanel"><h2>All Subjects</h2><div class="subject-grid"><div class="subject-card explore-subject-card"><span class="subject-icon">∑</span><span><strong>Additional Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Additional Mathematics" type="button">+ Add</button></div><div class="subject-card explore-subject-card"><span class="subject-icon">＋</span><span><strong>Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Mathematics" type="button">+ Add</button></div><div class="subject-card explore-subject-card"><span class="subject-icon">文</span><span><strong>Sejarah</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Sejarah" type="button">+ Add</button></div></div></div>
+      <div class="subject-list my-subjects-panel" id="mySubjectsPanel" hidden><h2>My Subjects</h2><div class="subject-grid" id="mySubjectsGrid"></div><p class="empty-subjects" id="emptySubjects">You haven't added any subjects yet.</p></div>
     </section>
   </main>
   <script>
     const exploreTab=document.getElementById('exploreTab'), mySubjectsTab=document.getElementById('mySubjectsTab'), explorePanel=document.getElementById('explorePanel'), mySubjectsPanel=document.getElementById('mySubjectsPanel'), mySubjectsGrid=document.getElementById('mySubjectsGrid'), emptySubjects=document.getElementById('emptySubjects');
     const subjectButtons=document.querySelectorAll('.add-subject');
     let mySubjects=JSON.parse(localStorage.getItem('learnWithShenSubjects')||'[]');
-
     function openCourse(subject){ window.location.href='course.html?subject='+encodeURIComponent(subject); }
-
     function renderMySubjects(){
       mySubjectsGrid.innerHTML=mySubjects.map(subject=>`<div class="subject-card subject-selectable" role="button" tabindex="0" data-subject="${subject}"><span class="subject-icon">${subject==='Additional Mathematics'?'∑':subject==='Mathematics'?'＋':'文'}</span><span><strong>${subject}</strong><small>My Subject</small></span><button class="add-subject added" data-subject="${subject}" type="button">Added</button></div>`).join('');
       emptySubjects.hidden=mySubjects.length>0;
-      subjectButtons.forEach(button=>{
-        const added=mySubjects.includes(button.dataset.subject);
-        button.textContent=added?'Added':'+ Add';
-        button.classList.toggle('added',added);
-      });
-      subjectButtons.forEach(button=>{
-        button.onmouseenter=()=>{ if(button.classList.contains('added')) button.textContent='Remove'; };
-        button.onmouseleave=()=>{ if(button.classList.contains('added')) button.textContent='Added'; };
-        button.onclick=(event)=>{
-          event.stopPropagation();
-          const subject=button.dataset.subject;
-          if(mySubjects.includes(subject)) mySubjects=mySubjects.filter(item=>item!==subject);
-          else mySubjects.push(subject);
-          localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));
-          renderMySubjects();
-        };
-      });
-      document.querySelectorAll('#mySubjectsGrid .add-subject').forEach(button=>{
-        button.onmouseenter=()=>{ button.textContent='Remove'; };
-        button.onmouseleave=()=>{ button.textContent='Added'; };
-        button.onclick=(event)=>{
-          event.stopPropagation();
-          mySubjects=mySubjects.filter(subject=>subject!==button.dataset.subject);
-          localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));
-          renderMySubjects();
-        };
-      });
-      document.querySelectorAll('#mySubjectsGrid .subject-selectable').forEach(card=>{
-        card.addEventListener('click',event=>{ if(event.target.closest('.add-subject')) return; openCourse(card.dataset.subject); });
-        card.addEventListener('keydown',event=>{ if(event.key==='Enter'||event.key===' '){event.preventDefault();openCourse(card.dataset.subject);} });
-      });
+      subjectButtons.forEach(button=>{const added=mySubjects.includes(button.dataset.subject);button.textContent=added?'Added':'+ Add';button.classList.toggle('added',added);});
+      subjectButtons.forEach(button=>{button.onmouseenter=()=>{if(button.classList.contains('added'))button.textContent='Remove';};button.onmouseleave=()=>{if(button.classList.contains('added'))button.textContent='Added';};button.onclick=(event)=>{event.stopPropagation();const subject=button.dataset.subject;if(mySubjects.includes(subject))mySubjects=mySubjects.filter(item=>item!==subject);else mySubjects.push(subject);localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));renderMySubjects();};});
+      document.querySelectorAll('#mySubjectsGrid .add-subject').forEach(button=>{button.onmouseenter=()=>{button.textContent='Remove';};button.onmouseleave=()=>{button.textContent='Added';};button.onclick=(event)=>{event.stopPropagation();mySubjects=mySubjects.filter(subject=>subject!==button.dataset.subject);localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));renderMySubjects();};});
+      document.querySelectorAll('#mySubjectsGrid .subject-selectable').forEach(card=>{card.addEventListener('click',event=>{if(event.target.closest('.add-subject'))return;openCourse(card.dataset.subject);});card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openCourse(card.dataset.subject);}});});
     }
-
     function showPanel(panel){const explore=panel==='explore';explorePanel.hidden=!explore;mySubjectsPanel.hidden=explore;exploreTab.classList.toggle('active',explore);mySubjectsTab.classList.toggle('active',!explore);}
-
-    exploreTab.addEventListener('click',()=>showPanel('explore'));
-    mySubjectsTab.addEventListener('click',()=>showPanel('my'));
-    renderMySubjects();
+    exploreTab.addEventListener('click',()=>showPanel('explore'));mySubjectsTab.addEventListener('click',()=>showPanel('my'));renderMySubjects();
   </script>
 </body>
 </html>

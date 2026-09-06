@@ -38,8 +38,6 @@ body { margin:0; min-height:100vh; font-family:Inter,-apple-system,BlinkMacSyste
 .journey { margin-top:34px; min-height:108px; padding:21px 30px; display:flex; align-items:center; gap:22px; border-radius:14px; background:rgba(250,245,235,.85); border:1px solid rgba(236,226,211,.7); }
 .journey-icon { width:54px; height:54px; display:grid; place-items:center; border-radius:50%; background:#f3ecdf; color:#a78960; }
 .journey-icon svg { width:28px; height:28px; fill:none; stroke:currentColor; stroke-width:1.6; }
-.journey h3 { margin:0 0 6px; font-family:Georgia,"Times New Roman",serif; font-size:18px; }
-.journey p { margin:0; color:#71819a; font-size:14px; line-height:1.5; }
 .page-heading { margin:24px auto 0; max-width:920px; }
 .page-heading h1 { margin:0 0 10px; font-family:Georgia,"Times New Roman",serif; font-size:52px; line-height:1.05; letter-spacing:-1px; color:var(--navy); }
 .page-heading p { margin:0; color:#687c96; font-size:17px; line-height:1.5; }
@@ -84,5 +82,26 @@ body { margin:0; min-height:100vh; font-family:Inter,-apple-system,BlinkMacSyste
 .site-footer div:last-child { display:block; white-space:nowrap; }
 .site-footer strong { color:var(--navy); font-family:Georgia,"Times New Roman",serif; font-size:14px; font-weight:600; }
 .site-footer span { color:#8a96a5; }
+
+/* Overview: slow, refined entrance */
+.welcome .eyebrow,
+.welcome h1,
+.welcome .subtitle,
+.welcome .quote,
+.welcome .section-title,
+.welcome .quick-card,
+.welcome .journey { opacity:0; transform:translateY(14px); animation:overviewReveal .9s cubic-bezier(.22,1,.36,1) forwards; }
+.welcome .eyebrow { animation-delay:.08s; }
+.welcome h1 { animation-delay:.22s; }
+.welcome .subtitle { animation-delay:.36s; }
+.welcome .quote { animation-delay:.48s; }
+.welcome .section-title { animation-delay:.58s; }
+.welcome .quick-card:nth-child(1) { animation-delay:.70s; }
+.welcome .quick-card:nth-child(2) { animation-delay:.82s; }
+.welcome .quick-card:nth-child(3) { animation-delay:.94s; }
+.welcome .journey { animation-delay:1.08s; }
+@keyframes overviewReveal { to { opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion:reduce) { .welcome .eyebrow,.welcome h1,.welcome .subtitle,.welcome .quote,.welcome .section-title,.welcome .quick-card,.welcome .journey { animation:none; opacity:1; transform:none; } }
+
 @media (max-width:1050px) { :root { --sidebar-width:205px; } .quick-grid,.subject-grid,.my-subjects-panel .subject-grid { grid-template-columns:1fr; } .course-menu { grid-template-columns:1fr; } .quote { display:none; } }
 @media (max-width:700px) { :root { --sidebar-width:185px; } .sidebar { padding-left:7px; padding-right:7px; } .brand { height:125px; } .brand img { width:90px; height:90px; } .profile-card { margin-left:3px; margin-right:3px; } .main-content { padding:78px 22px 44px; } .topbar { height:64px; } .welcome { margin-top:45px; } .eyebrow { font-size:16px; } .subtitle { font-size:15px; } .subject-tabs { flex-wrap:wrap; } .course-intro { align-items:flex-start; flex-direction:column; gap:14px; } .site-footer { margin-top:48px; align-items:flex-start; flex-direction:column; gap:10px; } }

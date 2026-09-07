@@ -1,5 +1,5 @@
 (() => {
-  const subjectIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+  const subjectIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1-5.6-.4-7 1.3v11c1.4-1.7 3.6-2.4 7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
   const questionIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5h12v13H6z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 9h6M9 12h6M9 15h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
 
   function injectSidebarStyle() {
@@ -17,6 +17,9 @@
       .sidebar-subject-symbol svg,.sidebar-question-bank .icon svg{width:17px!important;height:17px!important;fill:none!important;stroke:currentColor!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
       .sidebar-question-bank[hidden]{display:none!important}
       .sidebar-subject-group.expanded>.sidebar-question-bank{display:flex!important}
+      .sidebar-subject-nav .sidebar-arrow{margin-left:auto;width:14px;height:14px;display:grid;place-items:center;color:currentColor;transition:transform .18s ease}
+      .sidebar-subject-nav .sidebar-arrow svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+      .sidebar-subject-group.expanded>.sidebar-subject-nav .sidebar-arrow{transform:rotate(90deg)}
     `;
     document.head.appendChild(style);
   }
@@ -46,6 +49,7 @@
         <div class="sidebar-subject-group ${isOpen ? 'expanded' : ''}" data-subject="${subject}">
           <a class="nav-item sidebar-subject-nav ${isCourse ? 'subject-current' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}">
             <span class="icon sidebar-subject-symbol">${subjectIcon}</span><span>${subject}</span>
+            <span class="sidebar-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></span>
           </a>
           <a class="nav-item sidebar-question-bank ${isQuestionBank ? 'question-current' : ''}" href="question-bank.html?subject=${safeSubject}" ${isOpen ? '' : 'hidden'}>
             <span class="icon">${questionIcon}</span><span>Question Bank</span>

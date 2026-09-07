@@ -2,6 +2,8 @@
   const SUPABASE_URL = 'https://baizofrsfkayctpujfay.supabase.co';
   const SUPABASE_KEY = 'sb_publishable_1nm_yR17n62hn1_dqLb8BQ_vCiZkZ-2';
   const LOGIN_PAGE = 'login.html';
+  const MAIN_PAGE = 'index.html';
+  const OVERVIEW_PAGE = 'overview.html';
 
   let clientPromise;
 
@@ -14,8 +16,8 @@
   }
 
   function nextPath() {
-    const path = `${location.pathname.split('/').pop() || 'index.html'}${location.search}`;
-    return path === LOGIN_PAGE ? 'index.html' : path;
+    const path = `${location.pathname.split('/').pop() || MAIN_PAGE}${location.search}`;
+    return path === LOGIN_PAGE || path === MAIN_PAGE ? OVERVIEW_PAGE : path;
   }
 
   function redirectToLogin() {
@@ -55,7 +57,7 @@
   async function initLoginPage() {
     const supabase = await getClient();
     const { data: { session } } = await supabase.auth.getSession();
-    const next = new URLSearchParams(location.search).get('next') || 'index.html';
+    const next = new URLSearchParams(location.search).get('next') || OVERVIEW_PAGE;
     if (session) {
       location.replace(next);
       return;
@@ -139,10 +141,18 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
       if (location.pathname.endsWith(`/${LOGIN_PAGE}`) || location.pathname.endsWith(LOGIN_PAGE)) initLoginPage();
-      else initProtectedPage();
+      else if (location.pathname.endsWith(`/${MAIN_PAGE}`) || location.pathname.endsWith(MAIN_PAGE) || location.pathname.endsWith('/')) {
+        // Main landing page is public. No login is required here.
+      } else {
+        initProtectedPage();
+      }
     });
   } else {
     if (location.pathname.endsWith(`/${LOGIN_PAGE}`) || location.pathname.endsWith(LOGIN_PAGE)) initLoginPage();
-    else initProtectedPage();
+    else if (location.pathname.endsWith(`/${MAIN_PAGE}`) || location.pathname.endsWith(MAIN_PAGE) || location.pathname.endsWith('/')) {
+      // Main landing page is public. No login is required here.
+    } else {
+      initProtectedPage();
+    }
   }
 })();

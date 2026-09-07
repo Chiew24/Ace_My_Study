@@ -1,16 +1,15 @@
 /* =========================================================
    Learn with Shen — Visual polish layer
-   Refinement only: depth, interaction, typography and details.
-   Layout and responsive rules live in style.css.
+   Sidebar + Overview refinement.
+   Layout stays in style.css; this file only adds visual finish.
    ========================================================= */
 
 :root {
   --polish-shadow: 0 14px 34px rgba(24, 39, 61, .055);
-  --polish-shadow-hover: 0 18px 40px rgba(24, 39, 61, .10);
+  --polish-shadow-hover: 0 20px 42px rgba(24, 39, 61, .095);
   --polish-blue: #4d82b8;
 }
 
-/* ---------- Global finish ---------- */
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -21,8 +20,9 @@ body {
   color: #17395d;
 }
 
+/* ---------- Topbar ---------- */
 .topbar {
-  box-shadow: 0 1px 14px rgba(24, 39, 61, .035);
+  box-shadow: 0 1px 16px rgba(24, 39, 61, .035);
   border-bottom-color: rgba(121, 146, 171, .20);
 }
 
@@ -46,9 +46,11 @@ body {
   color: var(--polish-blue);
 }
 
-/* ---------- Sidebar depth ---------- */
+/* =========================================================
+   Sidebar
+   ========================================================= */
 .sidebar {
-  box-shadow: 4px 0 22px rgba(22, 40, 64, .035);
+  box-shadow: 5px 0 26px rgba(22, 40, 64, .045);
 }
 
 .sidebar::after {
@@ -56,127 +58,205 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: .34;
+  opacity: .30;
   background-image:
-    linear-gradient(rgba(77, 130, 184, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(77, 130, 184, .035) 1px, transparent 1px);
-  background-size: 28px 28px;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    linear-gradient(rgba(77, 130, 184, .032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(77, 130, 184, .032) 1px, transparent 1px);
+  background-size: 30px 30px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 13%, black 87%, transparent 100%);
 }
 
 .brand,
 .profile-card,
+.menu-title,
 .sidebar-nav,
-.menu-title {
+.sidebar-subjects {
   position: relative;
   z-index: 1;
 }
 
+.brand img {
+  filter: drop-shadow(0 5px 10px rgba(24, 39, 61, .07));
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), filter .35s ease;
+}
+
+.brand:hover img {
+  transform: translateY(-2px) scale(1.025);
+  filter: drop-shadow(0 8px 14px rgba(24, 39, 61, .10));
+}
+
 .profile-card {
-  box-shadow: 0 8px 24px rgba(24, 39, 61, .05);
+  box-shadow: 0 8px 24px rgba(24, 39, 61, .045);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.profile-card:hover {
+  border-color: rgba(77, 130, 184, .18);
+  box-shadow: 0 11px 28px rgba(24, 39, 61, .065);
+  transform: translateY(-1px);
+}
+
+.avatar {
+  box-shadow: 0 4px 12px rgba(116, 55, 237, .16);
+}
+
+.menu-title {
+  letter-spacing: .10em;
+}
+
+.sidebar-nav {
+  gap: 4px;
+}
+
+.nav-item {
+  position: relative;
+  min-height: 42px;
+  transition: background .20s ease, color .20s ease, transform .20s ease, box-shadow .20s ease;
 }
 
 .nav-item:hover {
-  box-shadow: inset 0 0 0 1px rgba(77, 130, 184, .08);
+  background: rgba(255, 255, 255, .68);
+  color: var(--navy);
+  transform: translateX(2px);
+  box-shadow: inset 0 0 0 1px rgba(77, 130, 184, .07);
 }
 
 .nav-item.active {
-  box-shadow: inset 2px 0 0 var(--polish-blue), 0 4px 12px rgba(77, 130, 184, .08);
+  background: linear-gradient(90deg, rgba(238, 233, 255, .96), rgba(245, 242, 255, .72));
+  color: var(--purple);
+  box-shadow: inset 3px 0 0 var(--polish-blue), 0 5px 14px rgba(77, 130, 184, .075);
 }
 
-/* ---------- Typography refinement ---------- */
-.welcome h1,
-.page-heading h1 {
-  letter-spacing: -1.35px;
+.nav-item.active::after {
+  content: "";
+  position: absolute;
+  right: 9px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--polish-blue);
+  opacity: .75;
+}
+
+.icon {
+  transition: color .20s ease, transform .20s ease;
+}
+
+.nav-item:hover .icon {
+  transform: translateX(1px);
+}
+
+/* =========================================================
+   Overview typography
+   ========================================================= */
+.welcome h1 {
+  letter-spacing: -1.45px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .35);
 }
 
 .subtitle {
   letter-spacing: .01em;
 }
 
-.quote { opacity: .92; }
-.section-title { letter-spacing: -.25px; }
+.quote {
+  opacity: .92;
+  text-shadow: 0 2px 8px rgba(166, 139, 100, .08);
+}
 
-/* ---------- Shared cards ---------- */
-.quick-card,
-.subject-card,
-.course-option,
-.journey {
+.section-title {
+  letter-spacing: -.3px;
+}
+
+/* =========================================================
+   Overview cards
+   ========================================================= */
+.quick-grid {
+  gap: 18px;
+}
+
+.quick-card {
   position: relative;
   overflow: hidden;
-  transition:
-    transform .25s cubic-bezier(.22, 1, .36, 1),
-    box-shadow .25s ease,
-    border-color .25s ease,
-    background .25s ease;
-}
-
-.quick-card,
-.subject-card,
-.course-option {
+  min-height: 218px;
+  padding: 23px 25px;
   box-shadow: var(--polish-shadow);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), box-shadow .28s ease, border-color .28s ease, background .28s ease;
 }
 
-.quick-card:hover,
-.subject-card:hover,
-.course-option:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--polish-shadow-hover);
-}
-
-.quick-card:hover { border-color: rgba(67, 119, 177, .20); }
-.subject-card:hover { border-color: rgba(67, 119, 177, .22); }
-.course-option:hover { border-color: rgba(100, 137, 171, .35); }
-
-.quick-card::after,
-.subject-card::after,
-.course-option::after,
-.journey::after {
+.quick-card::after {
   content: "";
   position: absolute;
-  width: 130px;
-  height: 130px;
-  right: -70px;
-  top: -70px;
+  width: 150px;
+  height: 150px;
+  right: -82px;
+  top: -82px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(77, 130, 184, .075), transparent 68%);
   pointer-events: none;
-  transition: transform .35s ease, opacity .35s ease;
   opacity: .65;
+  transition: transform .38s ease, opacity .38s ease;
 }
 
-.quick-card:hover::after,
-.subject-card:hover::after,
-.course-option:hover::after,
-.journey:hover::after {
-  transform: scale(1.25);
+.quick-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(67, 119, 177, .20);
+  box-shadow: var(--polish-shadow-hover);
+}
+
+.quick-card:hover::after {
+  transform: scale(1.22);
   opacity: 1;
 }
 
-.card-icon,
-.journey-icon,
-.subject-icon {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .55);
-}
-
-/* ---------- Overview polish ---------- */
-.quick-grid { gap: 18px; }
-
-.quick-card {
-  min-height: 218px;
-  padding: 23px 25px;
-}
-
 .card-icon {
-  transition: transform .25s cubic-bezier(.22, 1, .36, 1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .58);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), box-shadow .28s ease;
 }
 
-.quick-card:hover .card-icon { transform: scale(1.035); }
-.quick-card h3 { letter-spacing: -.2px; }
+.quick-card:hover .card-icon {
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .72), 0 7px 16px rgba(77, 130, 184, .07);
+}
 
+.quick-card h3 {
+  letter-spacing: -.2px;
+}
+
+.quick-card p {
+  transition: color .25s ease;
+}
+
+.quick-card:hover p {
+  color: #657a95;
+}
+
+.quick-card:first-child {
+  background: linear-gradient(145deg, rgba(255, 253, 249, .98), rgba(250, 247, 242, .92));
+}
+
+/* =========================================================
+   Learning journey
+   ========================================================= */
 .journey {
+  position: relative;
+  overflow: hidden;
   margin-top: 38px;
   box-shadow: 0 8px 24px rgba(24, 39, 61, .035);
+  transition: transform .28s cubic-bezier(.22, 1, .36, 1), border-color .28s ease, box-shadow .28s ease;
+}
+
+.journey::after {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -105px;
+  top: -110px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77, 130, 184, .055), transparent 68%);
+  pointer-events: none;
+  transition: transform .38s ease, opacity .38s ease;
+  opacity: .75;
 }
 
 .journey:hover {
@@ -185,17 +265,68 @@ body {
   box-shadow: 0 12px 30px rgba(24, 39, 61, .07);
 }
 
-.journey-icon { transition: transform .25s ease; }
-.journey:hover .journey-icon { transform: rotate(-3deg) scale(1.03); }
+.journey:hover::after {
+  transform: scale(1.15);
+  opacity: 1;
+}
 
-/* ---------- Subjects polish ---------- */
-.subject-tabs { gap: 11px; }
+.journey-icon {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .58);
+  transition: transform .28s ease, box-shadow .28s ease;
+}
+
+.journey:hover .journey-icon {
+  transform: rotate(-3deg) scale(1.035);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .72), 0 7px 15px rgba(77, 130, 184, .07);
+}
+
+/* ---------- Existing card polish ---------- */
+.subject-card,
+.course-option {
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--polish-shadow);
+  transition: transform .25s cubic-bezier(.22, 1, .36, 1), box-shadow .25s ease, border-color .25s ease, background .25s ease;
+}
+
+.subject-card:hover,
+.course-option:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--polish-shadow-hover);
+}
+
+.subject-card::after,
+.course-option::after {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -70px;
+  top: -70px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(77, 130, 184, .065), transparent 68%);
+  pointer-events: none;
+  opacity: .65;
+  transition: transform .35s ease, opacity .35s ease;
+}
+
+.subject-card:hover::after,
+.course-option:hover::after {
+  transform: scale(1.25);
+  opacity: 1;
+}
+
+.subject-tabs {
+  gap: 11px;
+}
 
 .subject-tab {
   transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
 }
 
-.subject-tab:hover { transform: translateY(-1px); }
+.subject-tab:hover {
+  transform: translateY(-1px);
+}
 
 .subject-tab.active {
   box-shadow: 0 5px 16px rgba(77, 130, 184, .10);
@@ -216,14 +347,21 @@ a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 
-  .quick-card,
-  .subject-card,
-  .course-option,
-  .journey,
+  .brand img,
   .profile-card,
+  .nav-item,
+  .icon,
   .topbar-sun,
+  .quick-card,
+  .quick-card::after,
   .card-icon,
+  .journey,
+  .journey::after,
   .journey-icon,
+  .subject-card,
+  .subject-card::after,
+  .course-option,
+  .course-option::after,
   .subject-tab {
     transition: none;
   }

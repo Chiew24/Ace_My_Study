@@ -57,9 +57,9 @@
   async function initLoginPage() {
     const supabase = await getClient();
     const { data: { session } } = await supabase.auth.getSession();
-    const next = new URLSearchParams(location.search).get('next') || OVERVIEW_PAGE;
+
     if (session) {
-      location.replace(next);
+      location.replace(OVERVIEW_PAGE);
       return;
     }
 
@@ -103,7 +103,7 @@
       }
 
       showMessage('Login successful.');
-      location.replace(next);
+      location.replace(OVERVIEW_PAGE);
     });
 
     signupForm?.addEventListener('submit', async event => {
@@ -128,7 +128,7 @@
       }
 
       if (data.session) {
-        location.replace(next);
+        location.replace(OVERVIEW_PAGE);
       } else {
         showMessage('Account created. Please check your email to confirm your account.', 'success');
         button.disabled = false;

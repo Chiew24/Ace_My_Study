@@ -6,12 +6,24 @@
   <title>Subject - Learn with Shen</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .sidebar-subjects { margin:3px 0 0 18px; display:flex; flex-direction:column; gap:2px; }
-    .sidebar-subject { display:block; padding:6px 8px; border-left:1px solid #ded5c7; color:#687993; text-decoration:none; font-size:12px; line-height:1.25; border-radius:0 7px 7px 0; transition:background .18s ease,color .18s ease; }
-    .sidebar-subject:hover { background:rgba(255,255,255,.65); color:#102746; }
-    .sidebar-subitem { display:block; margin-left:10px; padding:4px 8px; color:#8a96a5; text-decoration:none; font-size:11px; }
-    .sidebar-subitem:hover { color:#7437ed; }
-    @media (max-width:700px) { .sidebar-subjects { margin-left:12px; } }
+    .sidebar-subjects { margin:3px 0 0 0!important; display:flex; flex-direction:column; gap:2px; }
+    .sidebar-subject-group { width:100%; }
+    .sidebar-subject-nav { width:100%; margin:0!important; }
+    .sidebar-subject-symbol { font-size:16px; font-weight:700; line-height:1; }
+    .sidebar-question-bank { display:block; margin:2px 0 4px 48px!important; padding:5px 8px!important; color:#8a96a5; text-decoration:none; font-size:11px; border-left:1px solid #ded5c7; }
+    .sidebar-question-bank:hover { color:#7437ed; background:rgba(255,255,255,.5); }
+    .sidebar-subject-nav.subject-current { background:#f1edff; color:#7437ed; }
+    .sidebar-subjects .sidebar-subject, .sidebar-subjects .sidebar-subitem { all:unset; }
+    .subject-card { display:flex; align-items:center; gap:16px; }
+    .subject-card > span:nth-child(2) { flex:1; min-width:0; }
+    .add-subject { flex:0 0 auto; min-width:82px; padding:9px 16px; border:1px solid #d8c7aa; border-radius:999px; background:#fffdf9; color:#8a6b3f; font:600 13px/1 Arial,sans-serif; cursor:pointer; transition:all .2s ease; box-shadow:0 2px 7px rgba(31,50,75,.06); }
+    .add-subject:hover { background:#f7f0e5; border-color:#b89a70; transform:translateY(-1px); box-shadow:0 4px 10px rgba(31,50,75,.09); }
+    .add-subject:active { transform:translateY(0); }
+    .add-subject.added { background:#edf5ef; border-color:#bfd3c2; color:#55785d; cursor:pointer; box-shadow:none; }
+    .add-subject.added:hover { background:#f8ece8; border-color:#d4b5aa; color:#8a5f52; transform:translateY(-1px); }
+    .subject-selectable { cursor:pointer; }
+    .explore-subject-card { cursor:default; }
+    @media (max-width:700px) { .subject-card { gap:10px; } .add-subject { min-width:auto; padding:8px 11px; } }
   </style>
 </head>
 <body>
@@ -53,5 +65,6 @@
     function showPanel(panel){const my=panel==='my';mySubjectsPanel.hidden=!my;explorePanel.hidden=my;mySubjectsTab.classList.toggle('active',my);exploreTab.classList.toggle('active',!my);}
     mySubjectsTab.addEventListener('click',()=>showPanel('my'));exploreTab.addEventListener('click',()=>showPanel('explore'));renderMySubjects();renderSidebarSubjects();
   </script>
+  <script src="sidebar.js"></script>
 </body>
 </html>

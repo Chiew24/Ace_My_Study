@@ -27,7 +27,16 @@
     document.head.appendChild(style);
   }
 
-  function getSubjects(){try{return [...new Set(JSON.parse(localStorage.getItem('learnWithShenSubjects')||'[]'))].filter(s=>s==='Additional Mathematics'||s==='Mathematics')}catch{return []}}
+  // Every subject saved by the site is supported here, so future subjects
+  // automatically receive the same expandable sidebar animation.
+  function getSubjects(){
+    try{
+      const subjects=JSON.parse(localStorage.getItem('learnWithShenSubjects')||'[]');
+      return [...new Set(Array.isArray(subjects)?subjects:[])]
+        .filter(subject=>typeof subject==='string'&&subject.trim());
+    }catch{return []}
+  }
+
   function renderSidebarSubjects(){
     const box=document.getElementById('sidebarSubjects'); if(!box)return;
     const subjects=getSubjects(); const p=new URLSearchParams(location.search); const currentSubject=p.get('subject');

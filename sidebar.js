@@ -30,31 +30,33 @@
       const safeSubject = encodeURIComponent(subject);
       return `
         <div class="sidebar-subject-group ${isOpen ? 'expanded' : ''}" data-subject="${subject}">
-          <button class="nav-item sidebar-subject-nav ${subject === current ? 'subject-current' : ''}" type="button" aria-expanded="${isOpen}">
+          <a class="nav-item sidebar-subject-nav ${subject === current ? 'subject-current' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}">
             <span class="icon sidebar-subject-symbol">${iconFor(subject)}</span>
             <span>${subject}</span>
-          </button>
+          </a>
           <a class="sidebar-subitem sidebar-question-bank" href="course.html?subject=${safeSubject}#question-bank" ${isOpen ? '' : 'hidden'}>Question Bank</a>
         </div>`;
     }).join('');
 
-    box.querySelectorAll('.sidebar-subject-nav').forEach(button => {
-      button.addEventListener('click', () => {
-        const group = button.closest('.sidebar-subject-group');
+    box.querySelectorAll('.sidebar-subject-nav').forEach(link => {
+      link.addEventListener('click', event => {
+        const group = link.closest('.sidebar-subject-group');
         const subject = group.dataset.subject;
         const wasOpen = group.classList.contains('expanded');
-        box.querySelectorAll('.sidebar-subject-group').forEach(item => {
-          item.classList.remove('expanded');
-          item.querySelector('.sidebar-question-bank').hidden = true;
-          item.querySelector('.sidebar-subject-nav').setAttribute('aria-expanded', 'false');
-        });
+
         if (!wasOpen) {
+          event.preventDefault();
+          box.querySelectorAll('.sidebar-subject-group').forEach(item => {
+            item.classList.remove('expanded');
+            item.querySelector('.sidebar-question-bank').hidden = true;
+            item.querySelector('.sidebar-subject-nav').setAttribute('aria-expanded', 'false');
+          });
           group.classList.add('expanded');
           group.querySelector('.sidebar-question-bank').hidden = false;
-          button.setAttribute('aria-expanded', 'true');
+          link.setAttribute('aria-expanded', 'true');
           box.dataset.openSubject = subject;
         } else {
-          box.dataset.openSubject = '';
+          box.dataset.openSubject = subject;
         }
       });
     });

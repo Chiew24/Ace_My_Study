@@ -1,0 +1,85 @@
+/* Learn with Shen — visual polish layer */
+
+:root {
+  --polish-shadow: 0 14px 34px rgba(82,64,42,.055);
+  --polish-shadow-hover: 0 18px 40px rgba(82,64,42,.09);
+}
+
+html { scroll-behavior:smooth; }
+body { -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+::selection { background:var(--purple-soft); color:var(--purple); }
+
+/* Sidebar: cleaner rhythm without changing its structure */
+.sidebar { box-shadow:4px 0 18px rgba(70,55,38,.025); }
+.brand { padding-bottom:4px; }
+.profile-card { transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+.profile-card:hover { border-color:rgba(116,55,237,.16); box-shadow:0 8px 22px rgba(85,67,43,.055); transform:translateY(-1px); }
+.menu-title { user-select:none; }
+.nav-item { position:relative; }
+.nav-item.active::before { content:""; position:absolute; left:-10px; top:9px; bottom:9px; width:2px; border-radius:999px; background:var(--purple); opacity:.7; }
+
+/* Top bar */
+.topbar { box-shadow:0 1px 12px rgba(70,55,38,.018); }
+.topbar-sun { transition:transform .35s ease, color .25s ease; }
+.topbar-sun:hover { transform:rotate(18deg); color:var(--purple); }
+
+/* Global cards */
+.quick-card,
+.subject-card,
+.course-option,
+.journey {
+  transition:transform .25s cubic-bezier(.22,1,.36,1),
+              box-shadow .25s ease,
+              border-color .25s ease,
+              background .25s ease;
+}
+.quick-card:hover,
+.subject-card:hover,
+.course-option:hover {
+  transform:translateY(-3px);
+  box-shadow:var(--polish-shadow-hover);
+}
+.quick-card:hover { border-color:rgba(116,55,237,.15); }
+
+/* Overview polish */
+.welcome { position:relative; }
+.welcome h1 { letter-spacing:-1.35px; }
+.subtitle { letter-spacing:.01em; }
+.quote { opacity:.92; }
+.section-title { letter-spacing:-.25px; }
+.quick-grid { gap:18px; }
+.quick-card { min-height:218px; padding:23px 25px; box-shadow:var(--polish-shadow); }
+.quick-card:hover .card-icon { transform:scale(1.035); }
+.card-icon { transition:transform .25s cubic-bezier(.22,1,.36,1); }
+.quick-card h3 { letter-spacing:-.2px; }
+.journey { margin-top:38px; box-shadow:0 8px 24px rgba(82,64,42,.028); }
+.journey:hover { transform:translateY(-2px); border-color:rgba(182,154,112,.28); box-shadow:0 12px 30px rgba(82,64,42,.055); }
+.journey-icon { transition:transform .25s ease; }
+.journey:hover .journey-icon { transform:rotate(-3deg) scale(1.03); }
+
+/* Subject / course surfaces */
+.page-heading h1 { letter-spacing:-1.35px; }
+.subject-tabs { gap:11px; }
+.subject-tab { transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease; }
+.subject-tab:hover { transform:translateY(-1px); }
+.subject-card { box-shadow:var(--polish-shadow); }
+.subject-card:hover { border-color:rgba(116,55,237,.18); }
+.course-option { box-shadow:var(--polish-shadow); }
+.course-option:hover { border-color:rgba(182,154,112,.38); }
+
+/* Focus states */
+.nav-item:focus-visible,
+.subject-tab:focus-visible,
+.add-subject:focus-visible,
+.back-link:focus-visible,
+a:focus-visible { outline:2px solid rgba(116,55,237,.42); outline-offset:3px; }
+
+@media (max-width:900px) {
+  .quick-grid { grid-template-columns:1fr; }
+  .quick-card { min-height:170px; }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  .quick-card,.subject-card,.course-option,.journey,.profile-card,.topbar-sun,.card-icon,.journey-icon,.subject-tab { transition:none; }
+}

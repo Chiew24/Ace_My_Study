@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subject - Learn with Shen</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="polish.css"><link rel="stylesheet" href="subjects-banner.css">
+  <title>Subject - Learn with Shen</title><link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/polish.css"><link rel="stylesheet" href="assets/css/subjects-banner.css">
   <style>.subject-card{display:flex;align-items:center;gap:16px}.subject-card>span:nth-child(2){flex:1;min-width:0}.add-subject{flex:0 0 auto;min-width:82px;padding:9px 16px;border:1px solid #d8c7aa;border-radius:999px;background:#fffdf9;color:#8a6b3f;font:600 13px/1 Arial,sans-serif;cursor:pointer;transition:all .2s ease;box-shadow:0 2px 7px rgba(31,50,75,.06)}.add-subject:hover{background:#f7f0e5;border-color:#b89a70;transform:translateY(-1px);box-shadow:0 4px 10px rgba(31,50,75,.09)}.add-subject.added{background:#edf5ef;border-color:#bfd3c2;color:#55785d;box-shadow:none}.my-subject-card{cursor:default}.my-subject-card .subject-icon,.my-subject-card strong{cursor:default}@media(max-width:700px){.subject-card{gap:10px}.add-subject{min-width:auto;padding:8px 11px}}</style>
 </head>
 <body>
@@ -16,5 +16,5 @@
     function renderMySubjects(){mySubjectsGrid.innerHTML=mySubjects.map(subject=>`<div class="subject-card my-subject-card"><span class="subject-icon">${bookIcon}</span><span><strong>${subject}</strong><small>My Subject</small></span><button class="add-subject added" data-subject="${subject}" type="button">Added</button></div>`).join('');emptySubjects.hidden=mySubjects.length>0;document.querySelectorAll('.add-subject').forEach(button=>{const added=mySubjects.includes(button.dataset.subject);button.textContent=added?'Added':'+ Add';button.classList.toggle('added',added);button.onmouseenter=()=>{if(button.classList.contains('added'))button.textContent='Remove'};button.onmouseleave=()=>{if(button.classList.contains('added'))button.textContent='Added'};button.onclick=event=>{event.stopPropagation();const subject=button.dataset.subject;mySubjects=mySubjects.includes(subject)?mySubjects.filter(item=>item!==subject):[...mySubjects,subject];localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));renderMySubjects()}})}
     function showPanel(panel){const my=panel==='my';mySubjectsPanel.hidden=!my;explorePanel.hidden=my;mySubjectsTab.classList.toggle('active',my);exploreTab.classList.toggle('active',!my)}
     mySubjectsTab.onclick=()=>showPanel('my');exploreTab.onclick=()=>showPanel('explore');renderMySubjects();
-  </script><script src="sidebar.js"></script>
+  </script><script src="assets/js/sidebar.js"></script>
 </body></html>

@@ -74,17 +74,22 @@
       message.className = `auth-message ${type}`;
     }
 
-    document.querySelectorAll('[data-show-login]').forEach(button => button.addEventListener('click', () => {
-      loginView.hidden = false;
-      signupView.hidden = true;
-      showMessage('');
-    }));
-
-    document.querySelectorAll('[data-show-signup]').forEach(button => button.addEventListener('click', () => {
+    function showSignup() {
       loginView.hidden = true;
       signupView.hidden = false;
       showMessage('');
-    }));
+    }
+
+    function showLogin() {
+      loginView.hidden = false;
+      signupView.hidden = true;
+      showMessage('');
+    }
+
+    document.querySelectorAll('[data-show-login]').forEach(button => button.addEventListener('click', showLogin));
+    document.querySelectorAll('[data-show-signup]').forEach(button => button.addEventListener('click', showSignup));
+
+    if (location.hash === '#signup') showSignup();
 
     form?.addEventListener('submit', async event => {
       event.preventDefault();

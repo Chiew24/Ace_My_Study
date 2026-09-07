@@ -25,9 +25,7 @@
     try {
       return [...new Set(JSON.parse(localStorage.getItem('learnWithShenSubjects') || '[]'))]
         .filter(subject => subject === 'Additional Mathematics' || subject === 'Mathematics');
-    } catch {
-      return [];
-    }
+    } catch { return []; }
   }
 
   function renderSidebarSubjects() {
@@ -47,12 +45,10 @@
       return `
         <div class="sidebar-subject-group ${isOpen ? 'expanded' : ''}" data-subject="${subject}">
           <a class="nav-item sidebar-subject-nav ${isCourse ? 'subject-current' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}">
-            <span class="icon sidebar-subject-symbol">${subjectIcon}</span>
-            <span>${subject}</span>
+            <span class="icon sidebar-subject-symbol">${subjectIcon}</span><span>${subject}</span>
           </a>
           <a class="nav-item sidebar-question-bank ${isQuestionBank ? 'question-current' : ''}" href="question-bank.html?subject=${safeSubject}" ${isOpen ? '' : 'hidden'}>
-            <span class="icon">${questionIcon}</span>
-            <span>Question Bank</span>
+            <span class="icon">${questionIcon}</span><span>Question Bank</span>
           </a>
         </div>`;
     }).join('');
@@ -60,8 +56,7 @@
     box.querySelectorAll('.sidebar-subject-nav').forEach(link => {
       link.addEventListener('click', event => {
         const group = link.closest('.sidebar-subject-group');
-        const wasOpen = group.classList.contains('expanded');
-        if (!wasOpen) {
+        if (!group.classList.contains('expanded')) {
           event.preventDefault();
           box.querySelectorAll('.sidebar-subject-group').forEach(item => {
             item.classList.remove('expanded');
@@ -85,13 +80,9 @@
     let last = localStorage.getItem('learnWithShenSubjects') || '[]';
     setInterval(() => {
       const current = localStorage.getItem('learnWithShenSubjects') || '[]';
-      if (current !== last) {
-        last = current;
-        renderSidebarSubjects();
-      }
+      if (current !== last) { last = current; renderSidebarSubjects(); }
     }, 300);
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

@@ -33,18 +33,18 @@
     <section class="page-heading course-page">
       <a class="back-link" href="subjects.html">← Back to Subjects</a>
       <div class="course-intro"><div><h1 id="courseTitle">Course</h1><p>Choose what you would like to explore.</p></div><span class="course-badge">Learning Space</span></div>
-      <div class="course-menu"><a class="course-option" href="#question-bank"><div class="option-icon">?</div><h3>Question Bank</h3><p>Practise with questions to strengthen your understanding.</p></a></div>
+      <div class="course-menu"><a class="course-option" id="courseQuestionBank" href="question-bank.html"><div class="option-icon">?</div><h3>Question Bank</h3><p>Practise with questions to strengthen your understanding.</p></a></div>
     </section>
   </main>
+  <script src="sidebar.js"></script>
   <script>
     const params=new URLSearchParams(window.location.search);
     const subject=params.get('subject');
-    const mySubjects=JSON.parse(localStorage.getItem('learnWithShenSubjects')||'[]');
-    const sidebarSubjects=document.getElementById('sidebarSubjects');
-    function renderSidebar(){sidebarSubjects.innerHTML=mySubjects.map(item=>`<div><a class="sidebar-subject" href="course.html?subject=${encodeURIComponent(item)}">${item}</a><a class="sidebar-subitem" href="course.html?subject=${encodeURIComponent(item)}#question-bank">↳ Question Bank</a></div>`).join('');}
-    if(subject){document.getElementById('courseTitle').textContent=subject;document.title=subject+' - Learn with Shen';}
-    renderSidebar();
+    if(subject){
+      document.getElementById('courseTitle').textContent=subject;
+      document.title=subject+' - Learn with Shen';
+      document.getElementById('courseQuestionBank').href='question-bank.html?subject='+encodeURIComponent(subject);
+    }
   </script>
-  <script src="sidebar.js"></script>
 </body>
 </html>

@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Course - Learn with Shen</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .sidebar-subjects { margin:3px 0 0 18px; display:flex; flex-direction:column; gap:2px; }
+    .sidebar-subject { display:block; padding:6px 8px; border-left:1px solid #ded5c7; color:#687993; text-decoration:none; font-size:12px; line-height:1.25; border-radius:0 7px 7px 0; }
+    .sidebar-subject:hover { background:rgba(255,255,255,.65); color:#102746; }
+    .sidebar-subject.active { color:#7437ed; background:#f1edff; font-weight:700; }
+    .sidebar-subitem { display:block; margin-left:10px; padding:4px 8px; color:#8a96a5; text-decoration:none; font-size:11px; }
+    .sidebar-subitem:hover { color:#7437ed; }
+  </style>
 </head>
 <body>
   <aside class="sidebar">
@@ -14,6 +22,7 @@
     <nav class="sidebar-nav" aria-label="Main navigation"><a class="nav-item" href="index.html"><span class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><span>Overview</span></a></nav>
     <p class="menu-title sidebar-section-title">SYLLABUS</p>
     <nav class="sidebar-nav"><a class="nav-item active" href="subjects.html"><span class="icon"><svg viewBox="0 0 24 24"><path d="M5 7.5h14v11H5z"/><path d="M8 7.5V5h8v2.5M9 11h6M9 14h6"/></svg></span><span>Subject</span></a></nav>
+    <div class="sidebar-subjects" id="sidebarSubjects"></div>
     <p class="menu-title sidebar-section-title">ACCOUNT</p>
     <nav class="sidebar-nav"><a class="nav-item" href="profile.html"><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.8-3.2 3-5 6.5-5s5.7 1.8 6.5 5"/></svg></span><span>Profile</span></a></nav>
   </aside>
@@ -21,19 +30,18 @@
     <div class="topbar"><svg class="topbar-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div>
     <section class="page-heading course-page">
       <a class="back-link" href="subjects.html">← Back to Subjects</a>
-      <div class="course-intro">
-        <div><h1 id="courseTitle">Course</h1><p>Choose what you would like to explore.</p></div>
-        <span class="course-badge">Learning Space</span>
-      </div>
-      <div class="course-menu">
-        <a class="course-option" href="#question-bank"><div class="option-icon">?</div><h3>Question Bank</h3><p>Practise with questions to strengthen your understanding.</p></a>
-      </div>
+      <div class="course-intro"><div><h1 id="courseTitle">Course</h1><p>Choose what you would like to explore.</p></div><span class="course-badge">Learning Space</span></div>
+      <div class="course-menu"><a class="course-option" href="#question-bank"><div class="option-icon">?</div><h3>Question Bank</h3><p>Practise with questions to strengthen your understanding.</p></a></div>
     </section>
   </main>
   <script>
     const params=new URLSearchParams(window.location.search);
     const subject=params.get('subject');
-    if(subject){ document.getElementById('courseTitle').textContent=subject; document.title=subject+' - Learn with Shen'; }
+    const mySubjects=JSON.parse(localStorage.getItem('learnWithShenSubjects')||'[]');
+    const sidebarSubjects=document.getElementById('sidebarSubjects');
+    function renderSidebar(){sidebarSubjects.innerHTML=mySubjects.map(item=>`<div><a class="sidebar-subject ${item===subject?'active':''}" href="course.html?subject=${encodeURIComponent(item)}">${item}</a><a class="sidebar-subitem" href="course.html?subject=${encodeURIComponent(item)}#question-bank">↳ Question Bank</a></div>`).join('');}
+    if(subject){document.getElementById('courseTitle').textContent=subject;document.title=subject+' - Learn with Shen';}
+    renderSidebar();
   </script>
 </body>
 </html>

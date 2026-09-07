@@ -12,12 +12,15 @@
     const box = document.getElementById('sidebarSubjects');
     if (!box) return;
     const subjects = getSubjects();
-    const current = new URLSearchParams(window.location.search).get('subject');
+    const params = new URLSearchParams(window.location.search);
+    const current = params.get('subject');
+    const isQuestionBankPage = window.location.pathname.endsWith('question-bank.html');
     const openSubject = box.dataset.openSubject || '';
     box.innerHTML = subjects.map(subject => {
-      const isOpen = subject === openSubject || subject === current;
       const safeSubject = encodeURIComponent(subject);
-      return `<div class="sidebar-subject-group ${isOpen ? 'expanded' : ''}" data-subject="${subject}"><a class="nav-item sidebar-subject-nav ${subject === current ? 'subject-current' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}" style="border:0;outline:0;background:transparent;box-shadow:none;"><span class="icon sidebar-subject-symbol">${iconFor(subject)}</span><span>${subject}</span></a><a class="sidebar-subitem sidebar-question-bank" href="question-bank.html?subject=${safeSubject}" ${isOpen ? '' : 'hidden'}>Question Bank</a></div>`;
+      const isOpen = subject === openSubject || subject === current;
+      const isCurrentSubject = subject === current && !isQuestionBankPage;
+      return `<div class="sidebar-subject-group ${isOpen ? 'expanded' : ''}" data-subject="${subject}"><a class="nav-item sidebar-subject-nav ${isCurrentSubject ? 'active' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}"><span class="icon sidebar-subject-symbol">${iconFor(subject)}</span><span>${subject}</span></a><a class="nav-item sidebar-question-bank ${isQuestionBankPage && subject === current ? 'active' : ''}" href="question-bank.html?subject=${safeSubject}" ${isOpen ? '' : 'hidden'}>Question Bank</a></div>`;
     }).join('');
     box.querySelectorAll('.sidebar-subject-nav').forEach(link => {
       link.addEventListener('click', event => {
@@ -28,14 +31,18 @@
           event.preventDefault();
           box.querySelectorAll('.sidebar-subject-group').forEach(item => {
             item.classList.remove('expanded');
-            item.querySelector('.sidebar-question-bank').hidden = true;
-            item.querySelector('.sidebar-subject-nav').setAttribute('aria-expanded', 'false');
+            const child = item.querySelector('.sidebar-question-bank');
+            const parent = item.querySelector('.sidebar-subject-nav');
+            if (child) child.hidden = true;
+            if (parent) parent.classList.remove('active');
           });
           group.classList.add('expanded');
           group.querySelector('.sidebar-question-bank').hidden = false;
-          link.setAttribute('aria-expanded', 'true');
+          link.classList.add('active');
           box.dataset.openSubject = subject;
-        } else { box.dataset.openSubject = subject; }
+        } else {
+          box.dataset.openSubject = subject;
+        }
       });
     });
   }

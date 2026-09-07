@@ -1,0 +1,96 @@
+/* =========================================================
+   Learn with Shen — Authentication
+   ========================================================= */
+
+.auth-page {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  padding: 32px 20px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(116,55,237,.08), transparent 32%),
+    radial-gradient(circle at 80% 80%, rgba(182,154,112,.10), transparent 32%),
+    #f7f1e7;
+}
+
+.auth-shell { width: min(440px, 100%); }
+
+.auth-brand { text-align: center; margin-bottom: 24px; }
+.auth-brand img { width: 96px; height: 96px; object-fit: contain; filter: drop-shadow(0 8px 18px rgba(24,39,61,.08)); }
+
+.auth-card {
+  padding: 34px;
+  border: 1px solid rgba(225,216,202,.9);
+  border-radius: 22px;
+  background: rgba(255,253,249,.94);
+  box-shadow: 0 22px 55px rgba(24,39,61,.09);
+}
+
+.auth-card h1 {
+  margin: 0;
+  color: #102746;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  text-align: center;
+}
+
+.auth-subtitle {
+  margin: 9px 0 26px;
+  color: #71829a;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.auth-form { display: grid; gap: 15px; }
+.auth-field { display: grid; gap: 7px; }
+.auth-field label { color: #435873; font-size: 12px; font-weight: 700; }
+.auth-field input {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #ded4c6;
+  border-radius: 11px;
+  outline: none;
+  background: #fffdf9;
+  color: #102746;
+  font: 14px Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.auth-field input:focus {
+  border-color: rgba(116,55,237,.5);
+  box-shadow: 0 0 0 4px rgba(116,55,237,.08);
+}
+
+.auth-submit {
+  margin-top: 4px;
+  border: 0;
+  border-radius: 11px;
+  padding: 13px 16px;
+  background: #7437ed;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+}
+.auth-submit:hover { transform: translateY(-1px); box-shadow: 0 9px 20px rgba(116,55,237,.20); }
+.auth-submit:disabled { opacity: .65; cursor: wait; transform: none; }
+
+.auth-message { min-height: 20px; margin: 14px 0 0; font-size: 13px; line-height: 1.5; text-align: center; color: #71829a; }
+.auth-message.error { color: #a24d4d; }
+.auth-message.success { color: #4e806b; }
+
+.auth-switch { margin: 20px 0 0; color: #71829a; font-size: 13px; text-align: center; }
+.auth-link { border: 0; padding: 0; background: none; color: #7437ed; font: inherit; font-weight: 700; cursor: pointer; }
+
+.auth-page [hidden] { display: none !important; }
+
+@media (max-width: 520px) {
+  .auth-card { padding: 26px 22px; border-radius: 18px; }
+  .auth-brand { margin-bottom: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-submit, .auth-field input { transition: none; }
+}

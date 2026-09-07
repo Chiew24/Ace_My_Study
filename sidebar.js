@@ -30,7 +30,7 @@
       const safeSubject = encodeURIComponent(subject);
       return `
         <div class="sidebar-subject-group ${isOpen ? 'expanded' : ''}" data-subject="${subject}">
-          <a class="nav-item sidebar-subject-nav ${subject === current ? 'subject-current' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}">
+          <a class="nav-item sidebar-subject-nav ${subject === current ? 'subject-current' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}" style="border:0;outline:0;background:transparent;box-shadow:none;">
             <span class="icon sidebar-subject-symbol">${iconFor(subject)}</span>
             <span>${subject}</span>
           </a>

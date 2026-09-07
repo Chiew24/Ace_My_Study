@@ -1,21 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subject - Learn with Shen</title><link rel="stylesheet" href="assets/css/style.css"><link rel="stylesheet" href="assets/css/polish.css"><link rel="stylesheet" href="assets/css/subjects-banner.css">
-  <style>.subject-card{display:flex;align-items:center;gap:16px}.subject-card>span:nth-child(2){flex:1;min-width:0}.add-subject{flex:0 0 auto;min-width:82px;padding:9px 16px;border:1px solid #d8c7aa;border-radius:999px;background:#fffdf9;color:#8a6b3f;font:600 13px/1 Arial,sans-serif;cursor:pointer;transition:all .2s ease;box-shadow:0 2px 7px rgba(31,50,75,.06)}.add-subject:hover{background:#f7f0e5;border-color:#b89a70;transform:translateY(-1px);box-shadow:0 4px 10px rgba(31,50,75,.09)}.add-subject.added{background:#edf5ef;border-color:#bfd3c2;color:#55785d;box-shadow:none}.my-subject-card{cursor:default}.my-subject-card .subject-icon,.my-subject-card strong{cursor:default}.subject-toast{position:fixed;left:50%;bottom:30px;z-index:1000;transform:translate(-50%,16px);padding:12px 18px;border:1px solid rgba(143,110,64,.22);border-radius:14px;background:rgba(255,253,249,.96);box-shadow:0 12px 30px rgba(31,50,75,.14);color:#5d472c;font:600 14px/1 Arial,sans-serif;letter-spacing:.01em;opacity:0;pointer-events:none;backdrop-filter:blur(8px);transition:opacity .28s ease,transform .28s ease}.subject-toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:700px){.subject-card{gap:10px}.add-subject{min-width:auto;padding:8px 11px}.subject-toast{bottom:20px;max-width:calc(100vw - 40px);text-align:center;white-space:nowrap}}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subject - Learn with Shen</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/polish.css">
+  <link rel="stylesheet" href="assets/css/subjects-banner.css">
+  <link rel="stylesheet" href="assets/css/subjects.css">
 </head>
 <body>
-  <aside class="sidebar"><div class="brand"><img src="Learn%20with%20Shen.png" alt="Learn with Shen logo"></div><div class="profile-card"><div class="avatar">C</div><div class="profile-name">Chiew Mu Shen</div></div><p class="menu-title">MENU</p><nav class="sidebar-nav"><a class="nav-item" href="index.html"><span class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><span>Overview</span></a></nav><p class="menu-title sidebar-section-title">SYLLABUS</p><nav class="sidebar-nav"><a class="nav-item active" href="subjects.html"><span class="icon"><svg viewBox="0 0 24 24"><path d="M5 7.5h14v11H5z"/><path d="M8 7.5V5h8v2.5M9 11h6M9 14h6"/></svg></span><span>Subject</span></a></nav><div class="sidebar-subjects" id="sidebarSubjects"></div><p class="menu-title sidebar-section-title">ACCOUNT</p><nav class="sidebar-nav"><a class="nav-item" href="profile.html"><span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.8-3.2 3-5 6.5-5s5.7 1.8 6.5 5"/></svg></span><span>Profile</span></a></nav></aside>
-  <main class="main-content"><div class="topbar"><svg class="topbar-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></div><section class="page-heading subjects-page"><div class="subjects-hero"><h1>Subjects</h1><p>Explore your subjects and continue your learning journey.</p><div class="subject-tabs"><button class="subject-tab active" id="mySubjectsTab" type="button">My Subjects</button><button class="subject-tab" id="exploreTab" type="button">Explore Subject</button></div></div><div class="subject-list my-subjects-panel" id="mySubjectsPanel"><h2>My Subjects</h2><div class="subject-grid" id="mySubjectsGrid"></div><p class="empty-subjects" id="emptySubjects">You haven't added any subjects yet.</p></div><div class="subject-list" id="explorePanel" hidden><h2>All Subjects</h2><div class="subject-grid"><div class="subject-card explore-subject-card"><span class="subject-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span><span><strong>Additional Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Additional Mathematics" type="button">+ Add</button></div><div class="subject-card explore-subject-card"><span class="subject-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7 3.6-2.4 7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span><span><strong>Mathematics</strong><small>Explore subject</small></span><button class="add-subject" data-subject="Mathematics" type="button">+ Add</button></div></div></div></section></main>
-  <script>
-    const exploreTab=document.getElementById('exploreTab'),mySubjectsTab=document.getElementById('mySubjectsTab'),explorePanel=document.getElementById('explorePanel'),mySubjectsPanel=document.getElementById('mySubjectsPanel'),mySubjectsGrid=document.getElementById('mySubjectsGrid'),emptySubjects=document.getElementById('emptySubjects');
-    let mySubjects=JSON.parse(localStorage.getItem('learnWithShenSubjects')||'[]').filter(subject=>subject==='Additional Mathematics'||subject==='Mathematics');
-    localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));
-    const bookIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
-    function showSubjectToast(message){const old=document.querySelector('.subject-toast');if(old)old.remove();const toast=document.createElement('div');toast.className='subject-toast';toast.textContent=message;document.body.appendChild(toast);requestAnimationFrame(()=>toast.classList.add('show'));setTimeout(()=>{toast.classList.remove('show');setTimeout(()=>toast.remove(),300)},2400)}
-    function renderMySubjects(){mySubjectsGrid.innerHTML=mySubjects.map(subject=>`<div class="subject-card my-subject-card"><span class="subject-icon">${bookIcon}</span><span><strong>${subject}</strong><small>My Subject</small></span><button class="add-subject added" data-subject="${subject}" type="button">Added</button></div>`).join('');emptySubjects.hidden=mySubjects.length>0;document.querySelectorAll('.add-subject').forEach(button=>{const added=mySubjects.includes(button.dataset.subject);button.textContent=added?'Added':'+ Add';button.classList.toggle('added',added);button.onmouseenter=()=>{if(button.classList.contains('added'))button.textContent='Remove'};button.onmouseleave=()=>{if(button.classList.contains('added'))button.textContent='Added'};button.onclick=event=>{event.stopPropagation();const subject=button.dataset.subject;const wasAdded=mySubjects.includes(subject);mySubjects=wasAdded?mySubjects.filter(item=>item!==subject):[...mySubjects,subject];localStorage.setItem('learnWithShenSubjects',JSON.stringify(mySubjects));renderMySubjects();showSubjectToast(wasAdded?subject+' is removed':subject+' is added')}})}
-    function showPanel(panel){const my=panel==='my';mySubjectsPanel.hidden=!my;explorePanel.hidden=my;mySubjectsTab.classList.toggle('active',my);exploreTab.classList.toggle('active',!my)}
-    mySubjectsTab.onclick=()=>showPanel('my');exploreTab.onclick=()=>showPanel('explore');renderMySubjects();
-  </script><script src="assets/js/sidebar.js"></script>
-</body></html>
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="Learn%20with%20Shen.png" alt="Learn with Shen logo">
+    </div>
+
+    <div class="profile-card">
+      <div class="avatar">C</div>
+      <div class="profile-name">Chiew Mu Shen</div>
+    </div>
+
+    <p class="menu-title">MENU</p>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="index.html">
+        <span class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span>
+        <span>Overview</span>
+      </a>
+    </nav>
+
+    <p class="menu-title sidebar-section-title">SYLLABUS</p>
+    <nav class="sidebar-nav">
+      <a class="nav-item active" href="subjects.html">
+        <span class="icon"><svg viewBox="0 0 24 24"><path d="M5 7.5h14v11H5z"/><path d="M8 7.5V5h8v2.5M9 11h6M9 14h6"/></svg></span>
+        <span>Subject</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-subjects" id="sidebarSubjects"></div>
+
+    <p class="menu-title sidebar-section-title">ACCOUNT</p>
+    <nav class="sidebar-nav">
+      <a class="nav-item" href="profile.html">
+        <span class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20c.8-3.2 3-5 6.5-5s5.7 1.8 6.5 5"/></svg></span>
+        <span>Profile</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <div class="topbar">
+      <svg class="topbar-sun" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
+      </svg>
+    </div>
+
+    <section class="page-heading subjects-page">
+      <div class="subjects-hero">
+        <h1>Subjects</h1>
+        <p>Explore your subjects and continue your learning journey.</p>
+
+        <div class="subject-tabs">
+          <button class="subject-tab active" id="mySubjectsTab" type="button">My Subjects</button>
+          <button class="subject-tab" id="exploreTab" type="button">Explore Subject</button>
+        </div>
+      </div>
+
+      <div class="subject-list my-subjects-panel" id="mySubjectsPanel">
+        <h2>My Subjects</h2>
+        <div class="subject-grid" id="mySubjectsGrid"></div>
+        <p class="empty-subjects" id="emptySubjects">You haven't added any subjects yet.</p>
+      </div>
+
+      <div class="subject-list" id="explorePanel" hidden>
+        <h2>All Subjects</h2>
+        <div class="subject-grid">
+          <div class="subject-card explore-subject-card">
+            <span class="subject-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7 3.6-2.4 7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            </span>
+            <span>
+              <strong>Additional Mathematics</strong>
+              <small>Explore subject</small>
+            </span>
+            <button class="add-subject" data-subject="Additional Mathematics" type="button">+ Add</button>
+          </div>
+
+          <div class="subject-card explore-subject-card">
+            <span class="subject-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7 3.6-2.4 7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+            </span>
+            <span>
+              <strong>Mathematics</strong>
+              <small>Explore subject</small>
+            </span>
+            <button class="add-subject" data-subject="Mathematics" type="button">+ Add</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/subjects.js"></script>
+  <script src="assets/js/sidebar.js"></script>
+</body>
+</html>

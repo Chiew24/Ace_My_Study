@@ -1,11 +1,10 @@
 (() => {
   const subjectIcons = {
     'Additional Mathematics': '∑',
-    'Mathematics': '＋',
-    'Sejarah': '文'
+    'Mathematics': '＋'
   };
   function getSubjects() {
-    try { return JSON.parse(localStorage.getItem('learnWithShenSubjects') || '[]'); }
+    try { return JSON.parse(localStorage.getItem('learnWithShenSubjects') || '[]').filter(s => s !== 'Sejarah'); }
     catch { return []; }
   }
   function iconFor(subject) { return subjectIcons[subject] || subject.charAt(0).toUpperCase(); }
@@ -18,14 +17,7 @@
     box.innerHTML = subjects.map(subject => {
       const isOpen = subject === openSubject || subject === current;
       const safeSubject = encodeURIComponent(subject);
-      return `
-        <div class="sidebar-subject-group ${isOpen ? 'expanded' : ''}" data-subject="${subject}">
-          <a class="nav-item sidebar-subject-nav ${subject === current ? 'subject-current' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}" style="border:0;outline:0;background:transparent;box-shadow:none;">
-            <span class="icon sidebar-subject-symbol">${iconFor(subject)}</span>
-            <span>${subject}</span>
-          </a>
-          <a class="sidebar-subitem sidebar-question-bank" href="question-bank.html?subject=${safeSubject}" ${isOpen ? '' : 'hidden'}>Question Bank</a>
-        </div>`;
+      return `<div class="sidebar-subject-group ${isOpen ? 'expanded' : ''}" data-subject="${subject}"><a class="nav-item sidebar-subject-nav ${subject === current ? 'subject-current' : ''}" href="course.html?subject=${safeSubject}" aria-expanded="${isOpen}" style="border:0;outline:0;background:transparent;box-shadow:none;"><span class="icon sidebar-subject-symbol">${iconFor(subject)}</span><span>${subject}</span></a><a class="sidebar-subitem sidebar-question-bank" href="question-bank.html?subject=${safeSubject}" ${isOpen ? '' : 'hidden'}>Question Bank</a></div>`;
     }).join('');
     box.querySelectorAll('.sidebar-subject-nav').forEach(link => {
       link.addEventListener('click', event => {
@@ -43,20 +35,14 @@
           group.querySelector('.sidebar-question-bank').hidden = false;
           link.setAttribute('aria-expanded', 'true');
           box.dataset.openSubject = subject;
-        } else {
-          box.dataset.openSubject = subject;
-        }
+        } else { box.dataset.openSubject = subject; }
       });
     });
   }
   function init() {
     renderSidebarSubjects();
     let last = localStorage.getItem('learnWithShenSubjects') || '[]';
-    setInterval(() => {
-      const current = localStorage.getItem('learnWithShenSubjects') || '[]';
-      if (current !== last) { last = current; renderSidebarSubjects(); }
-    }, 300);
+    setInterval(() => { const current = localStorage.getItem('learnWithShenSubjects') || '[]'; if (current !== last) { last = current; renderSidebarSubjects(); } }, 300);
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 })();

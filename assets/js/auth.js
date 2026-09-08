@@ -59,8 +59,6 @@
     const freshLogin = new URLSearchParams(location.search).get('fresh') === '1';
     const { data: { session } } = await supabase.auth.getSession();
 
-    // Login/Sign Up reached from the public Main Page must always start
-    // a fresh authentication flow, even if an old session still exists.
     if (freshLogin && session) {
       await supabase.auth.signOut();
     } else if (session) {
@@ -71,8 +69,7 @@
     const form = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
     const message = document.getElementById('authMessage');
-    const loginView = document.getElementById('loginView');
-    const signupView = document.getElementById('signupView');
+    const container = document.getElementById('authContainer');
 
     function showMessage(text, type = '') {
       message.textContent = text;
@@ -80,14 +77,12 @@
     }
 
     function showSignup() {
-      loginView.hidden = true;
-      signupView.hidden = false;
+      container.classList.add('active');
       showMessage('');
     }
 
     function showLogin() {
-      loginView.hidden = false;
-      signupView.hidden = true;
+      container.classList.remove('active');
       showMessage('');
     }
 
@@ -152,7 +147,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       if (location.pathname.endsWith(`/${LOGIN_PAGE}`) || location.pathname.endsWith(LOGIN_PAGE)) initLoginPage();
       else if (location.pathname.endsWith(`/${MAIN_PAGE}`) || location.pathname.endsWith(MAIN_PAGE) || location.pathname.endsWith('/')) {
-        // Main landing page is public. No login is required here.
+        // Main landing page is public.
       } else {
         initProtectedPage();
       }
@@ -160,7 +155,7 @@
   } else {
     if (location.pathname.endsWith(`/${LOGIN_PAGE}`) || location.pathname.endsWith(LOGIN_PAGE)) initLoginPage();
     else if (location.pathname.endsWith(`/${MAIN_PAGE}`) || location.pathname.endsWith(MAIN_PAGE) || location.pathname.endsWith('/')) {
-      // Main landing page is public. No login is required here.
+      // Main landing page is public.
     } else {
       initProtectedPage();
     }

@@ -1,4 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Login - Ace My Study</title><link rel="stylesheet" href="assets/css/auth.css"></head>
-<body class="auth-page"><main class="auth-shell"><a class="auth-brand" href="index.html" aria-label="Back to Ace My Study home"><img src="assets/images/Ace%20My%20Study.png" alt="Ace My Study logo"></a><section class="auth-card"><div id="loginView"><h1>Welcome back</h1><p class="auth-subtitle">Sign in to continue your learning journey.</p><form class="auth-form" id="loginForm"><div class="auth-field"><label for="loginEmail">Email</label><input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div><div class="auth-field"><label for="loginPassword">Password</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required></div><button class="auth-submit" type="submit">Log in</button></form><p class="auth-switch">Don't have an account? <button class="auth-link" type="button" data-show-signup>Sign up</button></p></div><div id="signupView" hidden><h1>Create account</h1><p class="auth-subtitle">Create your account and start learning.</p><form class="auth-form" id="signupForm"><div class="auth-field"><label for="signupName">Name</label><input id="signupName" name="full_name" type="text" autocomplete="name" placeholder="Your name" required></div><div class="auth-field"><label for="signupEmail">Email</label><input id="signupEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div><div class="auth-field"><label for="signupPassword">Password</label><input id="signupPassword" name="password" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required></div><button class="auth-submit" type="submit">Create account</button></form><p class="auth-switch">Already have an account? <button class="auth-link" type="button" data-show-login>Log in</button></p></div><p class="auth-message" id="authMessage" role="status" aria-live="polite"></p></section></main><script src="assets/js/auth.js"></script></body></html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#6d45e8">
+  <title>Login - Ace My Study</title>
+  <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="auth-page">
+  <a class="auth-brand" href="index.html" aria-label="Back to Ace My Study home">
+    <img src="assets/images/Ace%20My%20Study.png" alt="Ace My Study logo">
+    <span>Ace <em>My Study</em></span>
+  </a>
+
+  <main class="auth-container" id="authContainer">
+    <section class="form-container sign-up" aria-label="Sign up">
+      <form id="signupForm">
+        <p class="form-eyebrow">START YOUR JOURNEY</p>
+        <h1>Create account</h1>
+        <p class="auth-subtitle">Create your account and start learning with Ace My Study.</p>
+        <div class="auth-field"><label for="signupName">Name</label><input id="signupName" name="full_name" type="text" autocomplete="name" placeholder="Your name" required></div>
+        <div class="auth-field"><label for="signupEmail">Email</label><input id="signupEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+        <div class="auth-field"><label for="signupPassword">Password</label><input id="signupPassword" name="password" type="password" autocomplete="new-password" minlength="6" placeholder="At least 6 characters" required></div>
+        <button class="auth-submit" type="submit">Sign Up <span>→</span></button>
+        <p class="auth-switch">Already have an account? <button class="auth-link" type="button" data-show-login>Log in</button></p>
+      </form>
+    </section>
+
+    <section class="form-container sign-in" aria-label="Login">
+      <form id="loginForm">
+        <p class="form-eyebrow">WELCOME BACK</p>
+        <h1>Welcome back</h1>
+        <p class="auth-subtitle">Sign in to continue your learning journey.</p>
+        <div class="auth-field"><label for="loginEmail">Email</label><input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="you@example.com" required></div>
+        <div class="auth-field"><label for="loginPassword">Password</label><input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required></div>
+        <button class="auth-submit" type="submit">Log In <span>→</span></button>
+        <p class="auth-switch">Don't have an account? <button class="auth-link" type="button" data-show-signup>Sign up</button></p>
+      </form>
+    </section>
+
+    <section class="toggle-container" aria-hidden="true">
+      <div class="toggle">
+        <div class="toggle-panel toggle-left">
+          <span class="panel-mark">AMS</span>
+          <p class="panel-eyebrow">YOUR SPM STUDY SPACE</p>
+          <h2>Welcome<br>back.</h2>
+          <p>Continue your study journey and keep making progress, one step at a time.</p>
+          <button class="toggle-button" type="button" data-show-login>Log In</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+          <span class="panel-mark">AMS</span>
+          <p class="panel-eyebrow">READY TO BEGIN?</p>
+          <h2>Learn.<br>Practise.<br>Improve.</h2>
+          <p>Join Ace My Study and build a more focused way to prepare for SPM.</p>
+          <button class="toggle-button" type="button" data-show-signup>Sign Up</button>
+        </div>
+      </div>
+    </section>
+
+    <p class="auth-message" id="authMessage" role="status" aria-live="polite"></p>
+  </main>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

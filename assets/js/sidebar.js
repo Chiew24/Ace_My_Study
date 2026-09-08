@@ -3,6 +3,7 @@
   const LEGACY_KEY = 'learnWithShenSubjects';
   const subjectIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1-5.6-.4-7 1.3v11c1.4-1.7 3.6-2.4 7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
   const questionIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5h12v13H6z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 9h6M9 12h6M9 15h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+  const infoIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 10.5v5M12 7.5h.01" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
 
   function injectSidebarStyle() {
     if (document.getElementById('shared-sidebar-style')) return;
@@ -46,13 +47,26 @@
     const subjects=getSubjects(); const p=new URLSearchParams(location.search); const currentSubject=p.get('subject');
     const page=location.pathname.split('/').pop(); const open=box.dataset.openSubject||currentSubject||'';
     box.innerHTML=subjects.map(subject=>{
-      const q=encodeURIComponent(subject); const isOpen=subject===open; const qb=page==='question-bank.html'&&subject===currentSubject;
-      return `<div class="sidebar-subject-group ${isOpen?'expanded':''}" data-subject="${subject}"><a class="nav-item sidebar-subject-nav ${qb?'subject-current':''}" href="question-bank.html?subject=${q}" aria-expanded="${isOpen}"><span class="icon sidebar-subject-symbol">${subjectIcon}</span><span>${subject}</span><span class="sidebar-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></span></a><div class="sidebar-subitems-wrap"><div class="sidebar-subitems-inner"><a class="nav-item sidebar-subitem ${qb?'item-current':''}" href="question-bank.html?subject=${q}"><span class="icon">${questionIcon}</span><span>Question Bank</span></a></div></div></div>`;
+      const q=encodeURIComponent(subject); const isOpen=subject===open;
+      const infoCurrent=page==='course.html'&&subject===currentSubject;
+      const qbCurrent=page==='question-bank.html'&&subject===currentSubject;
+      return `<div class="sidebar-subject-group ${isOpen?'expanded':''}" data-subject="${subject}"><a class="nav-item sidebar-subject-nav" href="#" aria-expanded="${isOpen}"><span class="icon sidebar-subject-symbol">${subjectIcon}</span><span>${subject}</span><span class="sidebar-arrow" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></span></a><div class="sidebar-subitems-wrap"><div class="sidebar-subitems-inner"><a class="nav-item sidebar-subitem ${infoCurrent?'item-current':''}" href="course.html?subject=${q}"><span class="icon">${infoIcon}</span><span>Course Info</span></a><a class="nav-item sidebar-subitem ${qbCurrent?'item-current':''}" href="question-bank.html?subject=${q}"><span class="icon">${questionIcon}</span><span>Question Bank</span></a></div></div></div>`;
     }).join('');
     box.querySelectorAll('.sidebar-subject-nav').forEach(link=>link.addEventListener('click',e=>{
+      e.preventDefault();
       const g=link.closest('.sidebar-subject-group');
-      if(link.getAttribute('href') && new URL(link.href).pathname.endsWith('question-bank.html') && !g.classList.contains('expanded')) { g.classList.add('expanded'); box.dataset.openSubject=g.dataset.subject; return; }
-      e.preventDefault(); const expanded=g.classList.contains('expanded'); box.querySelectorAll('.sidebar-subject-group').forEach(item=>{item.classList.remove('expanded');item.querySelector('.sidebar-subject-nav').setAttribute('aria-expanded','false')}); if(!expanded){g.classList.add('expanded');link.setAttribute('aria-expanded','true');box.dataset.openSubject=g.dataset.subject}else box.dataset.openSubject='';
+      const expanded=g.classList.contains('expanded');
+      box.querySelectorAll('.sidebar-subject-group').forEach(item=>{
+        item.classList.remove('expanded');
+        item.querySelector('.sidebar-subject-nav').setAttribute('aria-expanded','false');
+      });
+      if(!expanded){
+        g.classList.add('expanded');
+        link.setAttribute('aria-expanded','true');
+        box.dataset.openSubject=g.dataset.subject;
+      }else{
+        box.dataset.openSubject='';
+      }
     }));
   }
 

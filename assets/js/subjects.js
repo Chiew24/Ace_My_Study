@@ -35,8 +35,14 @@
   }
 
   function renderMySubjects() {
-    mySubjectsGrid.innerHTML = mySubjects.map(subject => `<a class="subject-card my-subject-card" href="question-bank.html?subject=${encodeURIComponent(subject)}" style="text-decoration:none;color:inherit"><span class="subject-icon">${bookIcon}</span><span><strong>${subject}</strong><small>My Subject</small></span><button class="add-subject added" data-subject="${subject}" type="button">Added</button></a>`).join('');
-    emptySubjects.hidden = mySubjects.length > 0; bindSubjectButtons();
+    mySubjectsGrid.innerHTML = mySubjects.map(subject => `<div class="subject-card my-subject-card" data-subject-link="question-bank.html?subject=${encodeURIComponent(subject)}" role="link" tabindex="0"><span class="subject-icon">${bookIcon}</span><span><strong>${subject}</strong><small>My Subject</small></span><button class="add-subject added" data-subject="${subject}" type="button">Added</button></div>`).join('');
+    emptySubjects.hidden = mySubjects.length > 0;
+    mySubjectsGrid.querySelectorAll('.my-subject-card').forEach(card => {
+      const go = () => { window.location.href = card.dataset.subjectLink; };
+      card.addEventListener('click', event => { if (!event.target.closest('.add-subject')) go(); });
+      card.addEventListener('keydown', event => { if ((event.key === 'Enter' || event.key === ' ') && !event.target.closest('.add-subject')) { event.preventDefault(); go(); } });
+    });
+    bindSubjectButtons();
   }
 
   function showPanel(panel) {

@@ -1,5 +1,5 @@
 /* =========================================================
-   Learn with Shen — Visual polish layer
+   Ace My Study — Visual polish layer
    Sidebar + Overview refinement.
    Layout stays in style.css; this file only adds visual finish.
    ========================================================= */
@@ -20,7 +20,6 @@ body {
   color: #17395d;
 }
 
-/* ---------- Topbar ---------- */
 .topbar {
   box-shadow: 0 1px 16px rgba(24, 39, 61, .035);
   border-bottom-color: rgba(121, 146, 171, .20);
@@ -46,9 +45,6 @@ body {
   color: var(--polish-blue);
 }
 
-/* =========================================================
-   Sidebar
-   ========================================================= */
 .sidebar {
   box-shadow: 5px 0 26px rgba(22, 40, 64, .045);
 }
@@ -127,15 +123,9 @@ body {
   box-shadow: inset 3px 0 0 var(--polish-blue), 0 5px 14px rgba(77, 130, 184, .075);
 }
 
+/* Active navigation uses the highlight only; no dot on the right. */
 .nav-item.active::after {
-  content: "";
-  position: absolute;
-  right: 9px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--polish-blue);
-  opacity: .75;
+  display: none;
 }
 
 .icon {
@@ -146,9 +136,6 @@ body {
   transform: translateX(1px);
 }
 
-/* =========================================================
-   Overview typography
-   ========================================================= */
 .welcome h1 {
   letter-spacing: -1.45px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, .35);
@@ -167,9 +154,6 @@ body {
   letter-spacing: -.3px;
 }
 
-/* =========================================================
-   Overview cards
-   ========================================================= */
 .quick-grid {
   gap: 18px;
 }
@@ -234,9 +218,6 @@ body {
   background: linear-gradient(145deg, rgba(255, 253, 249, .98), rgba(250, 247, 242, .92));
 }
 
-/* =========================================================
-   Learning journey
-   ========================================================= */
 .journey {
   position: relative;
   overflow: hidden;
@@ -257,112 +238,4 @@ body {
   pointer-events: none;
   transition: transform .38s ease, opacity .38s ease;
   opacity: .75;
-}
-
-.journey:hover {
-  transform: translateY(-2px);
-  border-color: rgba(100, 137, 171, .30);
-  box-shadow: 0 12px 30px rgba(24, 39, 61, .07);
-}
-
-.journey:hover::after {
-  transform: scale(1.15);
-  opacity: 1;
-}
-
-.journey-icon {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .58);
-  transition: transform .28s ease, box-shadow .28s ease;
-}
-
-.journey:hover .journey-icon {
-  transform: rotate(-3deg) scale(1.035);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .72), 0 7px 15px rgba(77, 130, 184, .07);
-}
-
-/* ---------- Existing card polish ---------- */
-.subject-card,
-.course-option {
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--polish-shadow);
-  transition: transform .25s cubic-bezier(.22, 1, .36, 1), box-shadow .25s ease, border-color .25s ease, background .25s ease;
-}
-
-.subject-card:hover,
-.course-option:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--polish-shadow-hover);
-}
-
-.subject-card::after,
-.course-option::after {
-  content: "";
-  position: absolute;
-  width: 130px;
-  height: 130px;
-  right: -70px;
-  top: -70px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(77, 130, 184, .065), transparent 68%);
-  pointer-events: none;
-  opacity: .65;
-  transition: transform .35s ease, opacity .35s ease;
-}
-
-.subject-card:hover::after,
-.course-option:hover::after {
-  transform: scale(1.25);
-  opacity: 1;
-}
-
-.subject-tabs {
-  gap: 11px;
-}
-
-.subject-tab {
-  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
-}
-
-.subject-tab:hover {
-  transform: translateY(-1px);
-}
-
-.subject-tab.active {
-  box-shadow: 0 5px 16px rgba(77, 130, 184, .10);
-}
-
-/* ---------- Focus states ---------- */
-.nav-item:focus-visible,
-.subject-tab:focus-visible,
-.add-subject:focus-visible,
-.remove-subject:focus-visible,
-.back-link:focus-visible,
-a:focus-visible {
-  outline: 2px solid rgba(67, 119, 177, .42);
-  outline-offset: 3px;
-}
-
-/* ---------- Motion safety ---------- */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-
-  .brand img,
-  .profile-card,
-  .nav-item,
-  .icon,
-  .topbar-sun,
-  .quick-card,
-  .quick-card::after,
-  .card-icon,
-  .journey,
-  .journey::after,
-  .journey-icon,
-  .subject-card,
-  .subject-card::after,
-  .course-option,
-  .course-option::after,
-  .subject-tab {
-    transition: none;
-  }
 }

@@ -49,16 +49,21 @@
         button.disabled = true;
         const supabase = await getClient();
         await supabase.auth.signOut();
-        location.replace(LOGIN_PAGE);
+        location.replace(MAIN_PAGE);
       });
     });
   }
 
   async function initLoginPage() {
     const supabase = await getClient();
+    const freshLogin = new URLSearchParams(location.search).get('fresh') === '1';
     const { data: { session } } = await supabase.auth.getSession();
 
-    if (session) {
+    // Login/Sign Up reached from the public Main Page must always start
+    // a fresh authentication flow, even if an old session still exists.
+    if (freshLogin && session) {
+      await supabase.auth.signOut();
+    } else if (session) {
       location.replace(OVERVIEW_PAGE);
       return;
     }

@@ -1,0 +1,134 @@
+/* Ace My Study — logged-in cream + brown visual theme */
+:root {
+  --purple: #765338;
+  --purple-soft: #efe4d5;
+  --polish-blue: #8a6848;
+  --theme-brown: #765338;
+  --theme-brown-dark: #5f412d;
+  --theme-caramel: #b08a63;
+  --theme-cream: #f7f1e7;
+  --theme-cream-soft: #f1e7da;
+  --theme-border: #dccdbb;
+}
+
+::selection {
+  background: rgba(118, 83, 56, .16) !important;
+  color: var(--navy);
+}
+
+/* Sidebar active state and profile accent */
+.avatar {
+  background: var(--theme-brown) !important;
+  box-shadow: 0 4px 12px rgba(118, 83, 56, .16) !important;
+}
+
+.nav-item.active {
+  background: linear-gradient(90deg, rgba(241, 231, 218, .98), rgba(247, 241, 231, .82)) !important;
+  color: var(--theme-brown) !important;
+  box-shadow: inset 3px 0 0 var(--theme-brown), 0 5px 14px rgba(118, 83, 56, .07) !important;
+}
+
+.nav-item.active .icon {
+  color: var(--theme-brown) !important;
+}
+
+.nav-item:hover {
+  box-shadow: inset 0 0 0 1px rgba(118, 83, 56, .09) !important;
+}
+
+/* Overview accents */
+.card-icon {
+  background: #eee2d3 !important;
+  color: var(--theme-brown) !important;
+}
+
+.card-icon.gold,
+.card-icon.green {
+  background: #eee2d3 !important;
+  color: var(--theme-brown) !important;
+}
+
+.quick-card::after,
+.journey::after {
+  background: radial-gradient(circle, rgba(176, 138, 99, .10), transparent 68%) !important;
+}
+
+.quick-card:hover {
+  border-color: rgba(118, 83, 56, .20) !important;
+}
+
+.quick-card:hover .card-icon {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .72), 0 7px 16px rgba(118, 83, 56, .08) !important;
+}
+
+.journey-icon {
+  background: #eee2d3 !important;
+  color: var(--theme-brown) !important;
+}
+
+.topbar-sun:hover {
+  color: var(--theme-brown) !important;
+}
+
+/* Subject tabs, cards and controls */
+.subject-tab.active {
+  border-color: var(--theme-brown) !important;
+  background: var(--theme-cream-soft) !important;
+  color: var(--theme-brown) !important;
+}
+
+.subject-icon {
+  background: #eee2d3 !important;
+  color: var(--theme-brown) !important;
+}
+
+.add-subject.added {
+  border-color: #cdbda8 !important;
+  background: var(--theme-cream-soft) !important;
+  color: #58745f !important;
+}
+
+.add-subject,
+.remove-subject {
+  border-color: #d8c6aa !important;
+  color: var(--theme-brown) !important;
+}
+
+.add-subject:hover,
+.remove-subject:hover {
+  border-color: var(--theme-caramel) !important;
+  background: #f8efe0 !important;
+  color: var(--theme-brown-dark) !important;
+}
+
+/* Course / question-bank accents */
+.back-link:hover {
+  color: var(--theme-brown) !important;
+}
+
+.course-option:hover {
+  border-color: rgba(118, 83, 56, .22) !important;
+}
+
+.option-icon {
+  background: #eee2d3 !important;
+  color: var(--theme-brown) !important;
+}
+
+/* Generic buttons / focus accents used by logged-in pages */
+button:focus-visible,
+a:focus-visible,
+input:focus,
+select:focus,
+textarea:focus {
+  outline-color: var(--theme-caramel) !important;
+}
+
+/* Remove remaining purple/blue accent treatments from the logged-in theme */
+[style*="#7437ed"],
+[style*="#7a3ff0"],
+[style*="#8b5cf6"] {
+  color: var(--theme-brown) !important;
+  background-color: var(--theme-cream-soft) !important;
+  border-color: var(--theme-brown) !important;
+}

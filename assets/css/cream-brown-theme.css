@@ -36,6 +36,12 @@
   box-shadow: inset 0 0 0 1px rgba(118, 83, 56, .09) !important;
 }
 
+.sidebar::after {
+  background-image:
+    linear-gradient(rgba(118, 83, 56, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(118, 83, 56, .025) 1px, transparent 1px) !important;
+}
+
 /* Overview accents */
 .card-icon {
   background: #eee2d3 !important;
@@ -68,6 +74,14 @@
 
 .topbar-sun:hover {
   color: var(--theme-brown) !important;
+}
+
+.topbar::after {
+  background: linear-gradient(90deg, transparent, rgba(176, 138, 99, .18), transparent) !important;
+}
+
+.profile-card:hover {
+  border-color: rgba(118, 83, 56, .18) !important;
 }
 
 /* Subject tabs, cards and controls */
@@ -124,7 +138,7 @@ textarea:focus {
   outline-color: var(--theme-caramel) !important;
 }
 
-/* Remove remaining purple/blue accent treatments from the logged-in theme */
+/* No purple or blue accent treatment in logged-in pages */
 [style*="#7437ed"],
 [style*="#7a3ff0"],
 [style*="#8b5cf6"] {

@@ -22,21 +22,46 @@
   box-shadow: 0 4px 12px rgba(118, 83, 56, .16) !important;
 }
 
-.nav-item.active,
-.sidebar .nav-item.active {
+/* Sidebar — use the same brown family throughout, while keeping the original logo artwork. */
+.sidebar,
+.sidebar .nav-item,
+.sidebar .nav-item .icon,
+.sidebar .nav-item span,
+.sidebar a,
+.sidebar a .icon,
+.sidebar .section-title,
+.sidebar .menu-title,
+.sidebar .account-title {
+  color: var(--theme-brown) !important;
+}
+
+.sidebar .section-title,
+.sidebar .menu-title,
+.sidebar .account-title {
+  color: var(--theme-caramel) !important;
+}
+
+.sidebar .nav-item.active,
+.sidebar .nav-item.active:hover {
   background: linear-gradient(90deg, rgba(241, 231, 218, .98), rgba(247, 241, 231, .82)) !important;
   color: var(--theme-brown) !important;
   box-shadow: inset 3px 0 0 var(--theme-brown), 0 5px 14px rgba(118, 83, 56, .07) !important;
 }
 
-.nav-item.active .icon,
-.sidebar .nav-item.active .icon {
-  color: var(--theme-brown) !important;
+.sidebar .nav-item.active .icon,
+.sidebar .nav-item.active span {
+  color: var(--theme-brown-dark) !important;
 }
 
-.nav-item:hover,
-.sidebar .nav-item:hover {
+.sidebar .nav-item:hover,
+.sidebar a:hover {
+  color: var(--theme-brown-dark) !important;
   box-shadow: inset 0 0 0 1px rgba(118, 83, 56, .09) !important;
+}
+
+.sidebar .nav-item:hover .icon,
+.sidebar a:hover .icon {
+  color: var(--theme-brown-dark) !important;
 }
 
 .sidebar::after {

@@ -22,9 +22,9 @@
   box-shadow: 0 4px 12px rgba(118, 83, 56, .16) !important;
 }
 
-/* Keep the sidebar background unchanged. */
+/* Sidebar stays the original light cream — never brown/yellow. */
 .sidebar {
-  background: rgba(250, 246, 238, .98) !important;
+  background: #faf6ee !important;
 }
 
 .sidebar::after {

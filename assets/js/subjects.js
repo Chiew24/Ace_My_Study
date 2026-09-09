@@ -12,7 +12,7 @@
     .filter(subject => subject === 'Additional Mathematics' || subject === 'Mathematics');
   localStorage.setItem(SUBJECTS_KEY, JSON.stringify(mySubjects));
 
-  const bookIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1-5.6-.4-7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+  const bookIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
 
   function showSubjectToast(message) {
     const old = document.querySelector('.subject-toast');
@@ -26,6 +26,10 @@
       toast.classList.remove('show');
       setTimeout(() => toast.remove(), 300);
     }, 2400);
+  }
+
+  function openCourse(subject) {
+    window.location.href = `course.html?subject=${encodeURIComponent(subject)}`;
   }
 
   function bindSubjectButtons() {
@@ -53,9 +57,24 @@
     });
   }
 
+  function bindSubjectCards() {
+    document.querySelectorAll('.my-subject-card').forEach(card => {
+      card.onclick = () => openCourse(card.dataset.subject);
+      card.style.cursor = 'pointer';
+      card.setAttribute('role', 'link');
+      card.setAttribute('tabindex', '0');
+      card.onkeydown = event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openCourse(card.dataset.subject);
+        }
+      };
+    });
+  }
+
   function renderMySubjects() {
     mySubjectsGrid.innerHTML = mySubjects.map(subject => `
-      <div class="subject-card my-subject-card" aria-label="${subject}">
+      <div class="subject-card my-subject-card" data-subject="${subject}" aria-label="Open ${subject}">
         <span class="subject-icon">${bookIcon}</span>
         <span><strong>${subject}</strong><small>My Subject</small></span>
         <button class="add-subject added" data-subject="${subject}" type="button">Added</button>
@@ -64,6 +83,7 @@
 
     emptySubjects.hidden = mySubjects.length > 0;
     bindSubjectButtons();
+    bindSubjectCards();
   }
 
   function showPanel(panel) {
@@ -76,5 +96,15 @@
 
   mySubjectsTab.addEventListener('click', () => showPanel('my'));
   exploreTab.addEventListener('click', () => showPanel('explore'));
+
+  document.querySelectorAll('.explore-subject-card').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', event => {
+      if (event.target.closest('.add-subject')) return;
+      const subject = card.querySelector('strong')?.textContent?.trim();
+      if (subject) openCourse(subject);
+    });
+  });
+
   renderMySubjects();
 })();

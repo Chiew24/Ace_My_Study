@@ -11,6 +11,29 @@
   min-width: 0;
 }
 
+/* Subject cards are clickable and lead directly to the Question Bank. */
+.my-subject-card {
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.my-subject-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbbda7;
+  box-shadow: 0 10px 24px rgba(38, 53, 47, 0.08);
+}
+
+.my-subject-card .subject-icon,
+.my-subject-card .subject-icon svg {
+  color: #111111 !important;
+  stroke: #111111 !important;
+}
+
+.my-subject-card .subject-icon,
+.my-subject-card strong {
+  cursor: pointer;
+}
+
 .add-subject {
   flex: 0 0 auto;
   min-width: 82px;
@@ -37,15 +60,6 @@
   border-color: #bfd3c2;
   color: #55785d;
   box-shadow: none;
-}
-
-.my-subject-card {
-  cursor: default;
-}
-
-.my-subject-card .subject-icon,
-.my-subject-card strong {
-  cursor: default;
 }
 
 .subject-toast {

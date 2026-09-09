@@ -22,9 +22,10 @@
   box-shadow: 0 4px 12px rgba(118, 83, 56, .16) !important;
 }
 
-/* Sidebar background only — keep the existing sidebar text/icon styling. */
+/* Sidebar: brown background only. Keep the existing sidebar text and icon colours. */
 .sidebar {
-  background: var(--theme-brown) !important;
+  background-color: #765338 !important;
+  background: #765338 !important;
 }
 
 .sidebar::after {
@@ -34,10 +35,7 @@
 }
 
 /* Keep the original Ace My Study logo artwork and colours. */
-.brand img {
-  filter: none !important;
-}
-
+.brand img,
 .brand:hover img {
   filter: none !important;
 }

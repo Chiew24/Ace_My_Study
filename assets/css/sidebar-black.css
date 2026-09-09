@@ -1,0 +1,19 @@
+/* Ace My Study — monochrome sidebar icon treatment */
+.sidebar .icon,
+.sidebar .nav-item .icon,
+.sidebar .nav-item.active .icon {
+  color: #111111 !important;
+}
+
+.sidebar .icon svg {
+  stroke: #111111 !important;
+}
+
+.sidebar .nav-item.active {
+  color: #111111;
+}
+
+.sidebar .nav-item:hover .icon,
+.sidebar .nav-item.active:hover .icon {
+  color: #111111 !important;
+}

@@ -1,6 +1,6 @@
 (() => {
-  const SUPABASE_URL = 'https://baizofrsfkayctpujfay.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_1nm_yR17n62hn1_dqLb8BQ_vCiZkZ-2';
+  const SUPABASE_URL = 'https://skvkotsfqfshcwbgunrb.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_TQCBoS-yEPGzvRQRcFKp_g_9xT9QxdI';
   const LOGIN_PAGE = 'login.html';
   const MAIN_PAGE = 'index.html';
   const OVERVIEW_PAGE = 'overview.html';

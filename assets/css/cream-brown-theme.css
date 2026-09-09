@@ -22,16 +22,15 @@
   box-shadow: 0 4px 12px rgba(118, 83, 56, .16) !important;
 }
 
-/* Sidebar: brown background only. Keep the existing sidebar text and icon colours. */
+/* Keep the sidebar background unchanged. */
 .sidebar {
-  background-color: #765338 !important;
-  background: #765338 !important;
+  background: rgba(250, 246, 238, .98) !important;
 }
 
 .sidebar::after {
   background-image:
-    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px) !important;
+    linear-gradient(rgba(118, 83, 56, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(118, 83, 56, .035) 1px, transparent 1px) !important;
 }
 
 /* Keep the original Ace My Study logo artwork and colours. */
@@ -108,8 +107,6 @@
 }
 
 /* Explicitly remove the old purple accent from common logged-in states. */
-.sidebar .nav-item.active,
-.sidebar .nav-item.active .icon,
 .subject-tab.active,
 .subject-icon,
 .option-icon,

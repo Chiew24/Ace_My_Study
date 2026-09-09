@@ -141,7 +141,7 @@
     });
   }
 
-  window.LearnWithShenAuth = { getClient, requireSession };
+  window.AceMyStudyAuth = { getClient, requireSession };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {

@@ -5,7 +5,6 @@
   const questionIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5h12v13H6z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 9h6M9 12h6M9 15h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
   const infoIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 10.5v5M12 7.5h.01" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
   const adminIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7.5h14v11H5z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 7.5V5h8v2.5M9 11h6M9 14h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
-  const tagIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 5.5v6l8 8 7-7-8-8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="9" cy="9" r="1" fill="currentColor"/></svg>';
 
   function injectSidebarStyle() {
     if (document.getElementById('shared-sidebar-style')) return;
@@ -69,9 +68,14 @@
 
   async function renderAdmin(){
     const box=document.getElementById('adminSidebar'); if(!box||!window.AceMyStudyAuth)return;
-    try{const s=await AceMyStudyAuth.requireSession();if(!s)return;const db=await AceMyStudyAuth.getClient();const {data,error}=await db.from('profiles').select('role').eq('id',s.user.id).maybeSingle();if(error||data?.role!=='admin'){box.innerHTML='';return}
+    try{
+      const s=await AceMyStudyAuth.requireSession();
+      if(!s)return;
+      const db=await AceMyStudyAuth.getClient();
+      const {data,error}=await db.from('profiles').select('role').eq('id',s.user.id).maybeSingle();
+      if(error||data?.role!=='admin'){box.innerHTML='';return}
       const page=location.pathname.split('/').pop();
-      box.innerHTML=`<div class="admin-sidebar-section"><p class="menu-title sidebar-section-title">ADMIN</p><nav class="sidebar-nav"><a class="admin-sidebar-link ${page==='admin-question-bank.html'||page==='admin-add-question.html'?'active':''}" href="admin-question-bank.html"><span class="icon">${adminIcon}</span><span>Question Bank</span></a><a class="admin-sidebar-link ${page==='admin-tags.html'?'active':''}" href="admin-tags.html"><span class="icon">${tagIcon}</span><span>Tags</span></a></nav></div>`;
+      box.innerHTML=`<div class="admin-sidebar-section"><p class="menu-title sidebar-section-title">ADMIN</p><nav class="sidebar-nav"><a class="admin-sidebar-link ${page==='admin-question-bank.html'?'active':''}" href="admin-question-bank.html"><span class="icon">${adminIcon}</span><span>Question Bank</span></a></nav></div>`;
     }catch(e){console.warn('Admin sidebar unavailable',e)}
   }
 

@@ -20,6 +20,18 @@
     return path === LOGIN_PAGE || path === MAIN_PAGE ? OVERVIEW_PAGE : path;
   }
 
+  function loginDestination() {
+    const raw = new URLSearchParams(location.search).get('next');
+    if (!raw) return OVERVIEW_PAGE;
+    try {
+      const target = decodeURIComponent(raw);
+      if (!target || target.startsWith('//') || /^[a-z][a-z\d+.-]*:/i.test(target)) return OVERVIEW_PAGE;
+      return target;
+    } catch {
+      return OVERVIEW_PAGE;
+    }
+  }
+
   function redirectToLogin() {
     const next = encodeURIComponent(nextPath());
     location.replace(`${LOGIN_PAGE}?next=${next}`);
@@ -62,7 +74,7 @@
     if (freshLogin && session) {
       await supabase.auth.signOut();
     } else if (session) {
-      location.replace(OVERVIEW_PAGE);
+      location.replace(loginDestination());
       return;
     }
 
@@ -108,7 +120,7 @@
       }
 
       showMessage('Login successful.');
-      location.replace(OVERVIEW_PAGE);
+      location.replace(loginDestination());
     });
 
     signupForm?.addEventListener('submit', async event => {
@@ -133,7 +145,7 @@
       }
 
       if (data.session) {
-        location.replace(OVERVIEW_PAGE);
+        location.replace(loginDestination());
       } else {
         showMessage('Account created. Please check your email to confirm your account.', 'success');
         button.disabled = false;

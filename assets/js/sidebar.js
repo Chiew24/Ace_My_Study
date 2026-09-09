@@ -14,7 +14,7 @@
       .sidebar-subject-group{width:100%!important}
       .sidebar-subject-nav,.sidebar-subitem{width:100%!important;margin:0!important;box-sizing:border-box!important;border-radius:11px!important;text-decoration:none!important;display:flex!important;align-items:center!important;gap:10px!important;min-height:43px!important;padding:0 10px!important;font-size:13px!important;font-weight:500!important;color:#51627c!important;background:transparent!important;border:0!important;box-shadow:none!important;transition:background .18s ease,color .18s ease,transform .18s ease!important}
       .sidebar-subject-nav:hover,.sidebar-subitem:hover{background:rgba(255,255,255,.62)!important;color:#102746!important;transform:translateX(1px)!important}
-      .sidebar-subject-nav.subject-current,.sidebar-subitem.item-current{background:#eee9ff!important;color:#7437ed!important;font-weight:700!important}
+      .sidebar-subject-nav.subject-current,.sidebar-subitem.item-current{background:#f1e7da!important;color:#765338!important;font-weight:700!important}
       .sidebar-subject-symbol,.sidebar-subitem .icon{width:18px!important;height:18px!important;flex:0 0 18px!important;display:grid!important;place-items:center!important;color:#111111!important}
       .sidebar-subject-nav.subject-current .sidebar-subject-symbol,.sidebar-subitem.item-current .icon{color:#111111!important}
       .sidebar-subject-symbol svg,.sidebar-subitem .icon svg{width:17px!important;height:17px!important;fill:none!important;stroke:#111111!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}

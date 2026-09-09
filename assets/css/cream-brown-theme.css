@@ -45,13 +45,13 @@
     linear-gradient(90deg, rgba(118, 83, 56, .025) 1px, transparent 1px) !important;
 }
 
-/* Make the actual Ace My Study logo monochrome black on logged-in pages. */
+/* Keep the original Ace My Study logo artwork and colours. */
 .brand img {
-  filter: grayscale(1) contrast(1.18) brightness(.48) drop-shadow(0 5px 10px rgba(24, 39, 61, .07)) !important;
+  filter: none !important;
 }
 
 .brand:hover img {
-  filter: grayscale(1) contrast(1.18) brightness(.42) drop-shadow(0 8px 14px rgba(24, 39, 61, .10)) !important;
+  filter: none !important;
 }
 
 /* Overview */

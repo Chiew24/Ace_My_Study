@@ -9,30 +9,33 @@
   --theme-cream: #f7f1e7;
   --theme-cream-soft: #f1e7da;
   --theme-border: #dccdbb;
+  --theme-ink: #102746;
 }
 
 ::selection {
   background: rgba(118, 83, 56, .16) !important;
-  color: var(--navy) !important;
+  color: var(--theme-ink) !important;
 }
 
-/* Shared logged-in navigation */
 .avatar {
   background: var(--theme-brown) !important;
   box-shadow: 0 4px 12px rgba(118, 83, 56, .16) !important;
 }
 
-.nav-item.active {
+.nav-item.active,
+.sidebar .nav-item.active {
   background: linear-gradient(90deg, rgba(241, 231, 218, .98), rgba(247, 241, 231, .82)) !important;
   color: var(--theme-brown) !important;
   box-shadow: inset 3px 0 0 var(--theme-brown), 0 5px 14px rgba(118, 83, 56, .07) !important;
 }
 
-.nav-item.active .icon {
+.nav-item.active .icon,
+.sidebar .nav-item.active .icon {
   color: var(--theme-brown) !important;
 }
 
-.nav-item:hover {
+.nav-item:hover,
+.sidebar .nav-item:hover {
   box-shadow: inset 0 0 0 1px rgba(118, 83, 56, .09) !important;
 }
 
@@ -40,6 +43,15 @@
   background-image:
     linear-gradient(rgba(118, 83, 56, .025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(118, 83, 56, .025) 1px, transparent 1px) !important;
+}
+
+/* Make the actual Ace My Study logo monochrome black on logged-in pages. */
+.brand img {
+  filter: grayscale(1) contrast(1.18) brightness(.48) drop-shadow(0 5px 10px rgba(24, 39, 61, .07)) !important;
+}
+
+.brand:hover img {
+  filter: grayscale(1) contrast(1.18) brightness(.42) drop-shadow(0 8px 14px rgba(24, 39, 61, .10)) !important;
 }
 
 /* Overview */
@@ -69,7 +81,8 @@
 .profile-card:hover { border-color: rgba(118, 83, 56, .18) !important; }
 
 /* Subjects */
-.subject-tab.active {
+.subject-tab.active,
+.subject-tab.active:hover {
   border-color: var(--theme-brown) !important;
   background: var(--theme-cream-soft) !important;
   color: var(--theme-brown) !important;
@@ -80,7 +93,8 @@
   color: var(--theme-brown) !important;
 }
 
-.add-subject.added {
+.add-subject.added,
+.add-subject.added:hover {
   border-color: #cdbda8 !important;
   background: var(--theme-cream-soft) !important;
   color: #58745f !important;
@@ -107,17 +121,9 @@
   color: var(--theme-brown) !important;
 }
 
-button:focus-visible,
-a:focus-visible,
-input:focus,
-select:focus,
-textarea:focus {
-  outline-color: var(--theme-caramel) !important;
-}
-
-/* Catch remaining purple/blue accent selectors used by the logged-in UI */
-.nav-item.active,
-.nav-item.active .icon,
+/* Explicitly remove the old purple accent from common logged-in states. */
+.sidebar .nav-item.active,
+.sidebar .nav-item.active .icon,
 .subject-tab.active,
 .subject-icon,
 .option-icon,
@@ -129,4 +135,13 @@ textarea:focus {
 .remove-subject,
 .back-link:hover {
   --purple: var(--theme-brown) !important;
+  --purple-soft: var(--theme-cream-soft) !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus,
+select:focus,
+textarea:focus {
+  outline-color: var(--theme-caramel) !important;
 }

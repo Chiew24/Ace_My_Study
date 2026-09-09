@@ -1,9 +1,11 @@
 (() => {
   const SUBJECTS_KEY = 'aceMyStudySubjects';
   const LEGACY_KEY = 'learnWithShenSubjects';
-  const subjectIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1-5.6-.4-7 1.3v11c1.4-1.7 3.6-2.4 7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+  const subjectIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1-5.6-.4-7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
   const questionIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5h12v13H6z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 9h6M9 12h6M9 15h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
   const infoIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 10.5v5M12 7.5h.01" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+  const adminIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7.5h14v11H5z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 7.5V5h8v2.5M9 11h6M9 14h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+  const tagIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 5.5v6l8 8 7-7-8-8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="9" cy="9" r="1" fill="currentColor"/></svg>';
 
   function injectSidebarStyle() {
     if (document.getElementById('shared-sidebar-style')) return;
@@ -27,7 +29,12 @@
       .sidebar-subject-nav .sidebar-arrow{margin-left:auto;width:14px;height:14px;display:grid;place-items:center;color:#111111;transition:transform .3s cubic-bezier(.22,1,.36,1)}
       .sidebar-subject-nav .sidebar-arrow svg{width:13px;height:13px;fill:none;stroke:#111111;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
       .sidebar-subject-group.expanded>.sidebar-subject-nav .sidebar-arrow{transform:rotate(90deg)}
-      @media (prefers-reduced-motion:reduce){.sidebar-subitems-wrap,.sidebar-subitems-inner .sidebar-subitem,.sidebar-subject-nav .sidebar-arrow{transition:none!important}}
+      .admin-sidebar-section{margin-top:14px!important}
+      .admin-sidebar-link{width:100%!important;box-sizing:border-box!important;min-height:43px!important;padding:0 10px!important;border-radius:11px!important;display:flex!important;align-items:center!important;gap:10px!important;text-decoration:none!important;color:#51627c!important;font-size:13px!important;font-weight:500!important;transition:background .18s ease,color .18s ease,transform .18s ease!important}
+      .admin-sidebar-link:hover,.admin-sidebar-link.active{background:#f1e7da!important;color:#765338!important;transform:translateX(1px)!important}
+      .admin-sidebar-link .icon{width:18px!important;height:18px!important;display:grid!important;place-items:center!important;color:#111!important}
+      .admin-sidebar-link svg{width:17px!important;height:17px!important;fill:none!important;stroke:#111!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+      @media (prefers-reduced-motion:reduce){.sidebar-subitems-wrap,.sidebar-subitems-inner .sidebar-subitem,.sidebar-subject-nav .sidebar-arrow,.admin-sidebar-link{transition:none!important}}
     `;
     document.head.appendChild(style);
   }
@@ -54,22 +61,20 @@
     }).join('');
     box.querySelectorAll('.sidebar-subject-nav').forEach(link=>link.addEventListener('click',e=>{
       e.preventDefault();
-      const g=link.closest('.sidebar-subject-group');
-      const expanded=g.classList.contains('expanded');
-      box.querySelectorAll('.sidebar-subject-group').forEach(item=>{
-        item.classList.remove('expanded');
-        item.querySelector('.sidebar-subject-nav').setAttribute('aria-expanded','false');
-      });
-      if(!expanded){
-        g.classList.add('expanded');
-        link.setAttribute('aria-expanded','true');
-        box.dataset.openSubject=g.dataset.subject;
-      }else{
-        box.dataset.openSubject='';
-      }
+      const g=link.closest('.sidebar-subject-group'); const expanded=g.classList.contains('expanded');
+      box.querySelectorAll('.sidebar-subject-group').forEach(item=>{item.classList.remove('expanded');item.querySelector('.sidebar-subject-nav').setAttribute('aria-expanded','false')});
+      if(!expanded){g.classList.add('expanded');link.setAttribute('aria-expanded','true');box.dataset.openSubject=g.dataset.subject}else box.dataset.openSubject='';
     }));
   }
 
-  function init(){injectSidebarStyle();renderSidebarSubjects();let last=localStorage.getItem(SUBJECTS_KEY)||localStorage.getItem(LEGACY_KEY)||'[]';setInterval(()=>{const now=localStorage.getItem(SUBJECTS_KEY)||localStorage.getItem(LEGACY_KEY)||'[]';if(now!==last){last=now;renderSidebarSubjects()}},300)}
+  async function renderAdmin(){
+    const box=document.getElementById('adminSidebar'); if(!box||!window.AceMyStudyAuth)return;
+    try{const s=await AceMyStudyAuth.requireSession();if(!s)return;const db=await AceMyStudyAuth.getClient();const {data,error}=await db.from('profiles').select('role').eq('id',s.user.id).maybeSingle();if(error||data?.role!=='admin'){box.innerHTML='';return}
+      const page=location.pathname.split('/').pop();
+      box.innerHTML=`<div class="admin-sidebar-section"><p class="menu-title sidebar-section-title">ADMIN</p><nav class="sidebar-nav"><a class="admin-sidebar-link ${page==='admin-question-bank.html'||page==='admin-add-question.html'?'active':''}" href="admin-question-bank.html"><span class="icon">${adminIcon}</span><span>Question Bank</span></a><a class="admin-sidebar-link ${page==='admin-tags.html'?'active':''}" href="admin-tags.html"><span class="icon">${tagIcon}</span><span>Tags</span></a></nav></div>`;
+    }catch(e){console.warn('Admin sidebar unavailable',e)}
+  }
+
+  function init(){injectSidebarStyle();renderSidebarSubjects();renderAdmin();let last=localStorage.getItem(SUBJECTS_KEY)||localStorage.getItem(LEGACY_KEY)||'[]';setInterval(()=>{const now=localStorage.getItem(SUBJECTS_KEY)||localStorage.getItem(LEGACY_KEY)||'[]';if(now!==last){last=now;renderSidebarSubjects()}},300)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();

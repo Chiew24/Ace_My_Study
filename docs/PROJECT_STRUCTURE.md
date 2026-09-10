@@ -1,33 +1,46 @@
 # Ace My Study — Project Structure
 
-This document explains how the repository is organised without changing the existing website code or file paths.
+This document explains the current repository organisation and keeps the website paths compatible with GitHub Pages.
 
 ## Root pages
 
 | File | Purpose |
 |---|---|
-| `index.html` | Public main / landing page |
+| `index.html` | Public landing page |
 | `login.html` | Login and Sign Up page |
 | `overview.html` | Logged-in Overview page |
 | `subjects.html` | My Subjects and Explore Subject |
 | `course.html` | Course Info page |
-| `question-bank.html` | Question Bank page |
+| `question-bank.html` | Student Question Bank page |
 | `profile.html` | Profile page |
 | `spm-addmath-landing.html` | SPM Additional Mathematics landing page |
+| `admin-question-bank.html` | Admin Question Bank |
+| `admin-add-question.html` | Admin Add Question |
 
 ## Assets
 
 ### `assets/css/`
 
-All visual styling is kept together here. The files are separated by page or purpose so the existing pages can continue using their current relative paths.
+All visual styling is kept together here, including shared theme styles and page-specific styles.
 
 ### `assets/js/`
 
-The JavaScript used by the website is kept in one place:
+```text
+assets/js/
+├── auth.js
+├── sidebar.js
+├── subjects.js
+├── admin-question-bank.js
+└── admin-add-question.js
+```
 
 - `auth.js` — authentication and protected-page logic
-- `sidebar.js` — shared dynamic sidebar and subject navigation
+- `sidebar.js` — shared sidebar and Admin navigation
 - `subjects.js` — subject-page interactions
+- `admin-question-bank.js` — Admin Question Bank behaviour
+- `admin-add-question.js` — Add Question form behaviour
+
+Tags are handled as part of the Question Bank workflow. There is no separate Admin Tags page.
 
 ### `assets/images/`
 
@@ -39,21 +52,21 @@ Shared images are stored here, including the Ace My Study logo.
 
 ## Why the HTML files remain in the root
 
-The existing pages reference assets with paths such as `assets/css/...` and `assets/js/...`. Moving the HTML pages into new folders would require changing those references.
+The existing pages use relative paths such as `assets/css/...` and `assets/js/...`. Keeping the HTML files in the root avoids unnecessary path changes and helps preserve the current GitHub Pages deployment.
 
-Because the goal of this organisation pass is **not to change the website code or functionality**, the current page locations are intentionally preserved.
-
-## Organisation goal
-
-The repository should be easy to understand at a glance:
+## Current organisation
 
 ```text
-Pages → Root
-Styles → assets/css
-JavaScript → assets/js
-Images → assets/images
-Deployment → .github/workflows
-Documentation → docs
+Ace_My_Study/
+│
+├── HTML pages                  # Root
+├── assets/
+│   ├── css/                    # Styles
+│   ├── js/                     # JavaScript
+│   └── images/                 # Images
+├── .github/workflows/          # Deployment
+├── docs/                       # Documentation
+└── README.md
 ```
 
-This keeps the project tidy while preserving the existing website structure and behaviour.
+The repository has been cleaned so the current Admin Question Bank structure is reflected in the documentation and the unused standalone Admin Tags script is no longer included.

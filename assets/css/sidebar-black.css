@@ -1,4 +1,4 @@
-/* Ace My Study — monochrome sidebar icon treatment */
+/* Ace My Study — sidebar typography, spacing and logo treatment */
 .sidebar .icon,
 .sidebar .nav-item .icon,
 .sidebar .nav-item.active .icon {
@@ -16,4 +16,44 @@
 .sidebar .nav-item:hover .icon,
 .sidebar .nav-item.active:hover .icon {
   color: #111111 !important;
+}
+
+/* Larger, cleaner sidebar text */
+.sidebar .menu-title {
+  font-size: 11px !important;
+  letter-spacing: .07em !important;
+}
+
+.sidebar .profile-name {
+  font-size: 15px !important;
+}
+
+.sidebar .nav-item {
+  font-size: 15px !important;
+}
+
+/* Keep the longer subject names on one line with an ellipsis */
+.sidebar .nav-item > span:last-child {
+  min-width: 0;
+}
+
+.sidebar-subject-nav > span:nth-child(2) {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Use the refreshed transparent logo in the sidebar */
+.sidebar .brand img {
+  display: none !important;
+}
+
+.sidebar .brand::before {
+  content: "";
+  display: block;
+  width: 132px;
+  height: 82px;
+  background: url("../images/ace-my-study-logo.svg") center / contain no-repeat;
 }

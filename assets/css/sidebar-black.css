@@ -1,4 +1,4 @@
-/* Ace My Study — sidebar typography, spacing and logo treatment */
+/* Ace My Study — sidebar typography and brand treatment */
 .sidebar .icon,
 .sidebar .nav-item .icon,
 .sidebar .nav-item.active .icon {
@@ -45,15 +45,18 @@
   white-space: nowrap !important;
 }
 
-/* Use the refreshed transparent logo in the sidebar */
+/* Show the Ace My Study text brand at the top, like the main page */
 .sidebar .brand img {
   display: none !important;
 }
 
 .sidebar .brand::before {
-  content: "";
+  content: "Ace My Study";
   display: block;
-  width: 132px;
-  height: 82px;
-  background: url("../images/ace-my-study-logo.svg") center / contain no-repeat;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #292620;
+  white-space: nowrap;
 }

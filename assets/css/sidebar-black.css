@@ -1,62 +1,19 @@
 /* Ace My Study — sidebar typography and brand treatment */
 .sidebar .icon,
 .sidebar .nav-item .icon,
-.sidebar .nav-item.active .icon {
-  color: #111111 !important;
-}
-
-.sidebar .icon svg {
-  stroke: #111111 !important;
-}
-
-.sidebar .nav-item.active {
-  color: #111111;
-}
-
+.sidebar .nav-item.active .icon { color: #111111 !important; }
+.sidebar .icon svg { stroke: #111111 !important; }
+.sidebar .nav-item.active { color: #111111; }
 .sidebar .nav-item:hover .icon,
-.sidebar .nav-item.active:hover .icon {
-  color: #111111 !important;
-}
+.sidebar .nav-item.active:hover .icon { color: #111111 !important; }
+.sidebar .menu-title { font-size: 11px !important; letter-spacing: .07em !important; }
+.sidebar .profile-name { font-size: 15px !important; }
+.sidebar .nav-item { font-size: 15px !important; }
+.sidebar .nav-item > span:last-child { min-width: 0; }
+.sidebar-subject-nav > span:nth-child(2) { flex: 1 1 auto !important; min-width: 0 !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
 
-/* Larger, cleaner sidebar text */
-.sidebar .menu-title {
-  font-size: 11px !important;
-  letter-spacing: .07em !important;
-}
-
-.sidebar .profile-name {
-  font-size: 15px !important;
-}
-
-.sidebar .nav-item {
-  font-size: 15px !important;
-}
-
-/* Keep the longer subject names on one line with an ellipsis */
-.sidebar .nav-item > span:last-child {
-  min-width: 0;
-}
-
-.sidebar-subject-nav > span:nth-child(2) {
-  flex: 1 1 auto !important;
-  min-width: 0 !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  white-space: nowrap !important;
-}
-
-/* Show the Ace My Study text brand at the top, like the main page */
-.sidebar .brand img {
-  display: none !important;
-}
-
-.sidebar .brand::before {
-  content: "Ace My Study";
-  display: block;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 23px;
-  font-weight: 700;
-  letter-spacing: -0.2px;
-  color: #292620;
-  white-space: nowrap;
-}
+/* Text-only Ace My Study brand, matching the main page */
+.sidebar .brand { gap: 0 !important; }
+.sidebar .brand img { display: none !important; }
+.sidebar .brand::before { content: "Ace"; display: inline-block; font-family: Georgia, "Times New Roman", serif; font-size: 23px; font-weight: 700; letter-spacing: -0.3px; color: #292620; white-space: nowrap; }
+.sidebar .brand::after { content: " My Study"; display: inline-block; font-family: Georgia, "Times New Roman", serif; font-size: 23px; font-weight: 700; letter-spacing: -0.3px; color: #79654e; white-space: nowrap; }

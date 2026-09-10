@@ -34,64 +34,94 @@ Subject
    └── Question Bank
 ```
 
-### Main Page
+## 👤 Account roles
 
-The public landing page introduces Ace My Study and explains what the platform is for, what students can do, and how the learning flow works.
+The project supports two application roles:
 
-### Login / Sign Up
+```text
+Student
+   ↓
+Overview / Subjects / Learning pages
 
-Students can create an account or log in before entering the protected learning pages.
+Admin
+   ↓
+Overview / Subjects / Learning pages
+   ↓
+Admin → Question Bank
+```
 
-### Overview
+Admin-only Question Bank management is protected by the Supabase role and database permissions.
 
-The Overview page is the main starting point after authentication. It provides quick access to the student's learning areas.
+## 📝 Admin Question Bank
 
-### Subjects
+The Admin Question Bank is organised around subjects and is intended to manage a large question collection.
 
-The Subjects page contains:
+Current admin flow:
 
-- **My Subjects** — subjects currently available to the student.
-- **Explore Subject** — available subjects that can be explored.
+```text
+Admin
+  ↓
+Question Bank
+  ↓
+Select Subject
+  ↓
+Question Bank for that Subject
+  ├── Search questions
+  ├── Preview question
+  ├── Edit question
+  ├── Delete question
+  └── Add Question
+```
 
-### Subject navigation
+The question editor supports the fields and content required by the current project, including Chapter, Difficulty, Year, Tags, Hint, Correct Answer, Explanation and image/equation content.
 
-When a subject is expanded in the sidebar, the current subject navigation provides:
-
-- **Course Info**
-- **Question Bank**
-
-The sidebar keeps the subject navigation organised while the main page content remains separate.
+Tags remain part of the question system but are not exposed as a separate Admin sidebar page.
 
 ## 📁 Repository structure
 
-The repository is intentionally kept simple so the existing website paths and relative asset references continue to work without changing the website code.
+The repository keeps GitHub Pages HTML files in the root so the existing relative asset paths continue to work.
 
 ```text
 Ace_My_Study/
 │
-├── index.html                    # Public main / landing page
-├── login.html                    # Login and Sign Up page
-├── overview.html                 # Logged-in Overview page
-├── subjects.html                 # My Subjects / Explore Subject page
-├── course.html                   # Course Info page
-├── question-bank.html            # Question Bank page
-├── profile.html                  # User profile page
+├── index.html                    # Public landing page
+├── login.html                    # Login / Sign Up
+├── overview.html                 # Logged-in Overview
+├── subjects.html                 # My Subjects / Explore Subject
+├── course.html                   # Course Info
+├── question-bank.html            # Student Question Bank
+├── profile.html                  # User Profile
 ├── spm-addmath-landing.html      # SPM Additional Mathematics landing page
+├── admin-question-bank.html      # Admin Question Bank
+├── admin-add-question.html       # Admin Add Question
 │
 ├── assets/
-│   ├── css/                      # All website stylesheets
-│   ├── js/                       # Website JavaScript
-│   └── images/                   # Shared website images and logo
+│   ├── css/                      # Page and theme styles
+│   ├── js/                       # Page behaviour and shared logic
+│   └── images/                   # Shared images and logo
 │
 ├── .github/
 │   └── workflows/
-│       └── pages.yml             # GitHub Pages deployment workflow
+│       └── pages.yml             # GitHub Pages deployment
 │
 ├── docs/
 │   └── PROJECT_STRUCTURE.md      # Repository organisation notes
 │
 └── README.md                     # Project documentation
 ```
+
+### JavaScript organisation
+
+```text
+assets/js/
+├── auth.js                       # Authentication and protected-page logic
+├── sidebar.js                    # Shared sidebar and Admin navigation
+├── subjects.js                   # Subject-page interactions
+├── admin-question-bank.js        # Admin Question Bank
+└── admin-add-question.js         # Add Question form
+```
+
+The old standalone `admin-tags.js` script has been removed because Tags are part of the Question Bank workflow rather than a separate Admin page.
 
 ## 🎨 Main design system
 
@@ -100,47 +130,20 @@ The website uses a warm, study-focused visual direction:
 - Cream / warm neutral backgrounds
 - Brown and dark-brown accents
 - Dark navy typography
-- Black logo/icon treatment where appropriate
 - Soft cards, borders and subtle shadows
 
 The design is intended to feel calm, focused and slightly modern rather than overly bright or distracting.
 
-## 🧩 Main assets
-
-### CSS
-
-- `assets/css/style.css` — core site styles
-- `assets/css/mainpage.css` — main landing page styles
-- `assets/css/auth.css` — login / sign-up styles
-- `assets/css/subjects.css` — subjects page styles
-- `assets/css/subjects-banner.css` — subjects banner styles
-- `assets/css/spm-addmath-landing.css` — SPM Additional Mathematics landing styles
-- `assets/css/polish.css` — visual polish styles
-- `assets/css/sidebar-black.css` — sidebar/logo/icon styling
-- `assets/css/cream-brown-theme.css` — cream + brown theme layer
-
-### JavaScript
-
-- `assets/js/auth.js` — authentication and protected-page behaviour
-- `assets/js/sidebar.js` — shared dynamic subject sidebar
-- `assets/js/subjects.js` — subject-page behaviour
-
-### Images
-
-- `assets/images/Ace My Study.png` — shared Ace My Study logo
-
-## 🔐 Authentication
+## 🔐 Authentication and database
 
 Authentication is handled through Supabase from the website's JavaScript authentication layer.
 
-The intended behaviour is:
+The intended permission model is:
 
-- The main page is public.
-- Login / Sign Up is the entry point to the learning system.
-- Successful authentication leads to `overview.html`.
-- Protected learning pages require an authenticated session.
-- Logging out returns the user to the public main page.
-- Returning to the main page does not bypass the login requirement for protected pages.
+- Student accounts use the normal learning pages.
+- Admin accounts can access the Admin Question Bank.
+- Admin Question Bank write operations are protected by Supabase database permissions.
+- The `profiles.role` value is used for application role checks.
 
 ## 🚀 GitHub Pages
 
@@ -152,11 +155,18 @@ The public website is served from the repository's GitHub Pages deployment.
 
 ## 📝 Organisation principle
 
-This repository keeps the existing HTML, CSS, JavaScript and asset paths intact. The organisation work is documentation-focused so that the current website functionality and relative file references are not changed.
+The repository is intentionally organised by responsibility without moving the root HTML pages:
 
-## 📌 Current scope
+```text
+Pages        → Root
+Styles       → assets/css
+JavaScript   → assets/js
+Images       → assets/images
+Deployment   → .github/workflows
+Documentation→ docs
+```
 
-The current project is focused on Malaysian SPM students, with the structure designed so that more subjects and learning content can be added later without changing the overall learning flow.
+This keeps the repository easy to understand while avoiding unnecessary path changes that could break GitHub Pages links.
 
 ---
 

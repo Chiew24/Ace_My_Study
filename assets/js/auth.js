@@ -46,7 +46,7 @@
 
   async function updateProfile(session) {
     const name = session?.user?.user_metadata?.full_name || session?.user?.email?.split('@')[0] || 'Student';
-    document.querySelectorAll('.profile-name').forEach(el => { el.textContent = name; });
+    document.querySelectorAll('.profile-name').forEach(el => { el.textContent = 'Mu Shen'; });
     document.querySelectorAll('.avatar').forEach(el => { el.textContent = name.charAt(0).toUpperCase(); });
     const welcome = document.querySelector('.welcome h1');
     if (welcome) welcome.textContent = name;

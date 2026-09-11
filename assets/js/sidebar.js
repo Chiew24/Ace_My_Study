@@ -29,7 +29,7 @@
       .sidebar-subject-nav .sidebar-arrow svg{width:13px;height:13px;fill:none;stroke:#111111;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
       .sidebar-subject-group.expanded>.sidebar-subject-nav .sidebar-arrow{transform:rotate(90deg)}
       .admin-sidebar-section{margin-top:14px!important}
-      .admin-sidebar-link{width:100%!important;box-sizing:border-box!important;min-height:43px!important;padding:0 10px!important;border-radius:11px!important;display:flex!important;align-items:center!important;gap:10px!important;text-decoration:none!important;color:#51627c!important;font-size:13px!important;font-weight:500!important;transition:background .18s ease,color .18s ease,transform .18s ease!important}
+      .admin-sidebar-link{width:100%!important;box-sizing:border-box!important;min-height:43px!important;padding:0 10px!important;border-radius:11px!important;display:flex!important;align-items:center!important;gap:10px!important;text-decoration:none!important;color:#51627c!important;font-size:13px!important;font-family:"Times New Roman",Times,serif!important;font-weight:500!important;transition:background .18s ease,color .18s ease,transform .18s ease!important}
       .admin-sidebar-link:hover,.admin-sidebar-link.active{background:#f1e7da!important;color:#765338!important;transform:translateX(1px)!important}
       .admin-sidebar-link .icon{width:18px!important;height:18px!important;display:grid!important;place-items:center!important;color:#111!important}
       .admin-sidebar-link svg{width:17px!important;height:17px!important;fill:none!important;stroke:#111!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
@@ -67,7 +67,15 @@
   }
 
   async function renderAdmin(){
-    const box=document.getElementById('adminSidebar'); if(!box||!window.AceMyStudyAuth)return;
+    const sidebar=document.querySelector('.sidebar'); if(!sidebar||!window.AceMyStudyAuth)return;
+    let box=document.getElementById('adminSidebar');
+    if(!box){
+      box=document.createElement('div');
+      box.id='adminSidebar';
+      const profileLink=sidebar.querySelector('a[href="profile.html"]');
+      const profileNav=profileLink?.closest('.sidebar-nav');
+      if(profileNav) profileNav.before(box); else sidebar.appendChild(box);
+    }
     try{
       const s=await AceMyStudyAuth.requireSession();
       if(!s)return;

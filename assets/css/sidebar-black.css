@@ -7,9 +7,9 @@
 .sidebar .nav-item:hover .icon,
 .sidebar .nav-item.active:hover .icon { color: #111111 !important; }
 .sidebar .menu-title { font-size: 10px !important; letter-spacing: .07em !important; }
-.sidebar .profile-name { font-size: 15px !important; }
-.sidebar .nav-item { font-size: 12px !important; font-family: "Times New Roman", Times, serif !important; }
-.sidebar a[href*="profile.html"] { font-size: 11px !important; font-family: "Times New Roman", Times, serif !important; }
+.sidebar .profile-name { font-size: 10px !important; }
+.sidebar .nav-item { font-size: 13px !important; font-family: "Times New Roman", Times, serif !important; }
+.sidebar a[href*="profile.html"] { font-size: 10px !important; font-family: "Times New Roman", Times, serif !important; }
 .sidebar .nav-item > span:last-child { min-width: 0; }
 .sidebar-subject-nav > span:nth-child(2) { flex: 1 1 auto !important; min-width: 0 !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
 

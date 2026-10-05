@@ -1,6 +1,7 @@
 (() => {
   const SUBJECTS_KEY = 'aceMyStudySubjects';
   const LEGACY_KEY = 'learnWithShenSubjects';
+  let storageKey = SUBJECTS_KEY;
   const subjectIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1-5.6-.4-7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
   const questionIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5.5h12v13H6z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M9 9h6M9 12h6M9 15h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
   const infoIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 10.5v5M12 7.5h.01" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
@@ -40,11 +41,9 @@
 
   function getSubjects(){
     try{
-      const saved = localStorage.getItem(SUBJECTS_KEY);
+      const saved = localStorage.getItem(storageKey);
       if(saved) return [...new Set(JSON.parse(saved))].filter(s=>s==='Additional Mathematics'||s==='Mathematics');
-      const legacy = JSON.parse(localStorage.getItem(LEGACY_KEY)||'[]').filter(s=>s==='Additional Mathematics'||s==='Mathematics');
-      if(legacy.length) localStorage.setItem(SUBJECTS_KEY, JSON.stringify(legacy));
-      return [...new Set(legacy)];
+      return [];
     }catch{return []}
   }
 
@@ -87,6 +86,20 @@
     }catch(e){console.warn('Admin sidebar unavailable',e)}
   }
 
-  function init(){injectSidebarStyle();renderSidebarSubjects();renderAdmin();let last=localStorage.getItem(SUBJECTS_KEY)||localStorage.getItem(LEGACY_KEY)||'[]';setInterval(()=>{const now=localStorage.getItem(SUBJECTS_KEY)||localStorage.getItem(LEGACY_KEY)||'[]';if(now!==last){last=now;renderSidebarSubjects()}},300)}
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  async function init(){
+    injectSidebarStyle();
+    if(window.AceMyStudyAuth){
+      const session=await AceMyStudyAuth.requireSession();
+      if(!session)return;
+      storageKey=`${SUBJECTS_KEY}:${session.user.id}`;
+    }
+    renderSidebarSubjects();
+    renderAdmin();
+    let last=localStorage.getItem(storageKey)||'[]';
+    setInterval(()=>{
+      const now=localStorage.getItem(storageKey)||'[]';
+      if(now!==last){last=now;renderSidebarSubjects()}
+    },300)
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>init().catch(console.error));else init().catch(console.error);
 })();

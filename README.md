@@ -100,10 +100,6 @@ Ace_My_Study/
 │   ├── js/                       # Page behaviour and shared logic
 │   └── images/                   # Shared images and logo
 │
-├── .github/
-│   └── workflows/
-│       └── pages.yml             # GitHub Pages deployment
-│
 ├── docs/
 │   └── PROJECT_STRUCTURE.md      # Repository organisation notes
 │
@@ -147,11 +143,7 @@ The intended permission model is:
 
 ## 🚀 GitHub Pages
 
-The repository uses GitHub Actions for GitHub Pages deployment through:
-
-`/.github/workflows/pages.yml`
-
-The public website is served from the repository's GitHub Pages deployment.
+The public website is served through GitHub Pages. GitHub currently uses its managed Pages build-and-deployment workflow for this repository.
 
 ## 📝 Organisation principle
 
@@ -162,7 +154,7 @@ Pages        → Root
 Styles       → assets/css
 JavaScript   → assets/js
 Images       → assets/images
-Deployment   → .github/workflows
+Deployment   → GitHub Pages
 Documentation→ docs
 ```
 

@@ -1,6 +1,7 @@
 (() => {
   const SUBJECTS_KEY = 'aceMyStudySubjects';
   const LEGACY_KEY = 'learnWithShenSubjects';
+  let storageKey = SUBJECTS_KEY;
   const exploreTab = document.getElementById('exploreTab');
   const mySubjectsTab = document.getElementById('mySubjectsTab');
   const explorePanel = document.getElementById('explorePanel');
@@ -8,11 +9,9 @@
   const mySubjectsGrid = document.getElementById('mySubjectsGrid');
   const emptySubjects = document.getElementById('emptySubjects');
 
-  let mySubjects = JSON.parse(localStorage.getItem(SUBJECTS_KEY) || localStorage.getItem(LEGACY_KEY) || '[]')
-    .filter(subject => subject === 'Additional Mathematics' || subject === 'Mathematics');
-  localStorage.setItem(SUBJECTS_KEY, JSON.stringify(mySubjects));
+  let mySubjects = [];
 
-  const bookIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
+  const bookIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5c3.4-1.1 5.6-.4 7 1.3v11c-1.4-1.7-3.6-2.4-7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M19 6.5c-3.4-1.1-5.6-.4-7 1.3v11c1.4-1.7 3.6-2.4 7-1.3z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>';
 
   function showSubjectToast(message) {
     const old = document.querySelector('.subject-toast');
@@ -50,7 +49,7 @@
         mySubjects = wasAdded
           ? mySubjects.filter(item => item !== subject)
           : [...mySubjects, subject];
-        localStorage.setItem(SUBJECTS_KEY, JSON.stringify(mySubjects));
+        localStorage.setItem(storageKey, JSON.stringify(mySubjects));
         renderMySubjects();
         showSubjectToast(wasAdded ? `${subject} is removed` : `${subject} is added`);
       };
@@ -106,5 +105,31 @@
     });
   });
 
-  renderMySubjects();
+  async function init() {
+    const session = await AceMyStudyAuth.requireSession();
+    if (!session) return;
+    storageKey = `${SUBJECTS_KEY}:${session.user.id}`;
+
+    const existing = localStorage.getItem(storageKey);
+    if (existing) {
+      mySubjects = JSON.parse(existing);
+    } else {
+      const legacy = localStorage.getItem(SUBJECTS_KEY) || localStorage.getItem(LEGACY_KEY) || '[]';
+      mySubjects = JSON.parse(legacy);
+      localStorage.setItem(storageKey, JSON.stringify(mySubjects));
+      localStorage.removeItem(SUBJECTS_KEY);
+      localStorage.removeItem(LEGACY_KEY);
+    }
+
+    mySubjects = [...new Set(mySubjects)]
+      .filter(subject => subject === 'Additional Mathematics' || subject === 'Mathematics');
+    localStorage.setItem(storageKey, JSON.stringify(mySubjects));
+    renderMySubjects();
+  }
+
+  init().catch(error => {
+    console.error('Unable to load subjects', error);
+    mySubjects = [];
+    renderMySubjects();
+  });
 })();
